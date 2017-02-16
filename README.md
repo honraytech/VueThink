@@ -6,14 +6,14 @@ VueThink不仅适用于管理后台或管理系统开发，且广泛适用于B/S
 使用许可：VueThink是基于MIT协议的开源框架，它完全免费。你可以免费下载VueThink，用来搭建自己的或者团体的软件。
 
 主要适用技术栈：
-后端框架：ThinkPHP 5.x
-前端MVVM框架：Vue.JS 2.x
-开发工作流：Webpack 1.x
-路由：Vue-Router 2.x
-数据交互：Axios
-代码风格检测：Eslint
-UI框架：Element-UI 1.1.6
-JS函数库：Lodash
+*后端框架：ThinkPHP 5.x
+*前端MVVM框架：Vue.JS 2.x
+*开发工作流：Webpack 1.x
+*路由：Vue-Router 2.x
+*数据交互：Axios
+*代码风格检测：Eslint
+*UI框架：Element-UI 1.1.6
+*JS函数库：Lodash
 
 > VueThink的运行环境要求PHP5.4以上。
 
