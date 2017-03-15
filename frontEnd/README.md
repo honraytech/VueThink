@@ -34,11 +34,13 @@ VueThink是一套基于Vue全家桶（Vue2.x + Vue-router2.x + Vuex）+ Thinkphp
 
 
 ### 数据交互
-```
 数据交互通过axios以及RESTful架构来实现
+
 用户校验通过登录返回的auth_key放在header
+
 值得注意的一点是：跨域的情况下，会有预请求OPTION的情况
-```
+
+附上接口文档：<http://rap.taobao.org/workspace/myWorkspace.do?projectId=15385#128405>
 
 ### Server搭建
 参考地址：<https://github.com/honraytech/VueThink/tree/master/php>
