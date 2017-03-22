@@ -35,7 +35,7 @@ VueThink是基于MIT协议的开源框架，它完全免费。你可以免费下
 * 部门管理
 * 用户组管理
 * 用户管理
-```
+
 ### Demo
 演示地址：<http://demo.vuethink.com>
 
