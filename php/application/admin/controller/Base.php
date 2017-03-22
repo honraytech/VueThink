@@ -54,7 +54,7 @@ class Base extends Common
         $systemConfig = cache('DB_CONFIG_DATA'); 
         if (!$systemConfig) {
             //获取所有系统配置
-            $systemConfig = model('common/SystemConfig')->getDataList();
+            $systemConfig = model('admin/SystemConfig')->getDataList();
             cache('DB_CONFIG_DATA', null);
             cache('DB_CONFIG_DATA', $systemConfig, 36000); //缓存配置
         }
