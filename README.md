@@ -61,7 +61,7 @@ VueThink是基于MIT协议的开源框架，它完全免费。你可以免费下
 
 值得注意的一点是：跨域的情况下，会有预请求OPTION的情况
 
-附上接口文档：<http://rap.taobao.org/workspace/myWorkspace.do?projectId=15385#128405>
+附上接口文档：<http://api.vuethink.com>
 
 ### Server搭建
 参考地址：<https://github.com/honraytech/VueThink/tree/master/php>

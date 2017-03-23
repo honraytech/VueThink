@@ -21,10 +21,8 @@ class Common extends Controller
         header('Access-Control-Allow-Credentials: true');
         header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
         header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, authKey, sessionId");
-        $param =  Request::instance()->param();
-        $data = $this->object_array(json_decode(request()->getInput()));
-        if (!$data) $data = [];            
-        $this->param = array_merge($param, $data);
+        $param =  Request::instance()->param();            
+        $this->param = $param;
     }
 
     public function object_array($array) 
