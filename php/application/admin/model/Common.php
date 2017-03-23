@@ -100,7 +100,7 @@ class Common extends Model
 		$this->startTrans();
 		try {
 			$this->where($this->getPk(), $id)->delete();
-			if ($delSon) {
+			if ($delSon && is_numeric($id)) {
 				// 删除子孙
 				$childIds = $this->getAllChild($id);
 				if($childIds){
@@ -134,17 +134,21 @@ class Common extends Model
 		// 查找所有子元素
 		if ($delSon) {
 			foreach ($ids as $k => $v) {
+				if (!is_numeric($v)) continue;
 				$childIds = $this->getAllChild($v);
 				$ids = array_merge($ids, $childIds);
 			}
 			$ids = array_unique($ids);
 		}
 
-		if ($this->where($this->getPk(), 'in', $ids)->delete()) {
-			return true;	
-		}
-		$this->error = '删除失败';
-		return false;
+		try {
+			$this->where($this->getPk(), 'in', $ids)->delete();
+			return true;
+		} catch (\Exception $e) {
+			$this->error = '操作失败';
+			return false;
+		}		
+
 	}
 
 	/**
@@ -171,12 +175,13 @@ class Common extends Model
 			}
 			$ids = array_unique($ids);
 		}
-
-		if ($this->where($this->getPk(),'in',$ids)->setField('status', $status)) {
-			return true;		
+		try {
+			$this->where($this->getPk(),'in',$ids)->setField('status', $status);
+			return true;
+		} catch (\Exception $e) {
+			$this->error = '操作失败';
+			return false;
 		}
-		$this->error = '操作失败';
-		return false;
 	}
 
 	/**
