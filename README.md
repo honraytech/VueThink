@@ -66,7 +66,9 @@ VueThink是基于MIT协议的开源框架，它完全免费。你可以免费下
 ### Server搭建
 服务端使用的框架为thinkphp5.搭建前请确保拥有lamp/lnmp/wamp环境。
 
-这里所说的安装其实就是把server框架放入WEB运行环境，并使用80端口。
+集成环境推荐使用phpstudy：<http://http://www.phpstudy.net/> 
+
+这里所说的搭建其实就是把server框架放入WEB运行环境，并使用80端口。
 
 导入服务端根文件夹数据库文件install.sql，并修改config/database.php配置文件。
 
@@ -76,6 +78,20 @@ VueThink是基于MIT协议的开源框架，它完全免费。你可以免费下
 * CURL PHP Extension
 
 服务端开发手册请参考：<http://http://www.kancloud.cn/manual/thinkphp5/118003>
+
+p.s 如果使用的nginx服务，请设置重写规则
+```
+location / {
+
+    if (!-e $request_filename) {
+
+        rewrite ^(.*)$ /index.php?s=$1 last;
+
+        break;
+
+    }
+}
+```
 
 
 ### 前端程序
