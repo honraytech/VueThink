@@ -70,10 +70,11 @@ VueThink是基于MIT协议的开源框架，它完全免费。你可以免费下
 
 导入服务端根文件夹数据库文件install.sql，并修改config/database.php配置文件。
 
-*PHP >= 5.4.0
-*PDO PHP Extension
-*MBstring PHP Extension
-*CURL PHP Extension
+* PHP >= 5.4.0
+* PDO PHP Extension
+* MBstring PHP Extension
+* CURL PHP Extension
+服务端开发手册请参考：<http://http://www.kancloud.cn/manual/thinkphp5/118003>
 
 
 ### 前端程序
