@@ -74,6 +74,7 @@ VueThink是基于MIT协议的开源框架，它完全免费。你可以免费下
 * PDO PHP Extension
 * MBstring PHP Extension
 * CURL PHP Extension
+
 服务端开发手册请参考：<http://http://www.kancloud.cn/manual/thinkphp5/118003>
 
 
