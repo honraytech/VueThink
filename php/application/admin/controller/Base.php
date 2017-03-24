@@ -9,6 +9,7 @@ namespace app\admin\controller;
 
 use com\verify\HonrayVerify;
 use app\common\controller\Common;
+use think\Request;
 
 class Base extends Common
 {
@@ -84,7 +85,11 @@ class Base extends Common
     // miss 路由：处理没有匹配到的路由规则
     public function miss()
     {
-        return ;
+        if (Request::instance()->isOptions()) {
+            return ;
+        } else {
+            echo 'vuethink接口';
+        }
     }
 }
  
