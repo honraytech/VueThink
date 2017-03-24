@@ -66,7 +66,7 @@ VueThink是基于MIT协议的开源框架，它完全免费。你可以免费下
 ### Server搭建
 服务端使用的框架为thinkphp5.搭建前请确保拥有lamp/lnmp/wamp环境。
 
-集成环境推荐使用phpstudy：<http://http://www.phpstudy.net/> 
+集成环境推荐使用phpstudy：<http://www.phpstudy.net/> 
 
 这里所说的搭建其实就是把server框架放入WEB运行环境，并使用80端口。
 
@@ -94,7 +94,7 @@ location / {
 ```
 
 
-### 前端程序
+### 前端搭建
 ```
 前端运行只需要执行以下两个命令行
 npm install
