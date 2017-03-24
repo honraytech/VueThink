@@ -89,15 +89,15 @@ CREATE TABLE IF NOT EXISTS `oa_admin_menu` (
 INSERT INTO `oa_admin_menu` (`id`, `pid`, `title`, `url`, `icon`, `menu_type`, `sort`, `status`, `rule_id`, `module`, `menu`) VALUES
 (52, 0, '管理', '', '', 1, 0, 1, 59, 'Administrative', ''),
 (53, 52, '系统配置', '', '', 1, 0, 1, 61, 'Administrative', ''),
-(54, 53, '菜单管理', '/menu/list', '', 1, 0, 1, 21, 'Administrative', 'menu'),
-(55, 53, '系统参数', '/config/add', '', 1, 0, 1, 29, 'Administrative', 'systemConfig'),
-(56, 53, '权限规则', '/rule/list', '', 1, 0, 1, 13, 'Administrative', 'rule'),
+(54, 53, '菜单管理', 'menu/list', '', 1, 0, 1, 21, 'Administrative', 'menu'),
+(55, 53, '系统参数', 'config/add', '', 1, 0, 1, 29, 'Administrative', 'systemConfig'),
+(56, 53, '权限规则', 'rule/list', '', 1, 0, 1, 13, 'Administrative', 'rule'),
 (57, 52, '组织架构', '', '', 1, 0, 1, 63, 'Administrative', ''),
-(58, 57, '岗位管理', '/position/list', '', 1, 0, 1, 31, 'Administrative', 'position'),
-(59, 57, '部门管理', '/structures/list', '', 1, 0, 1, 39, 'Administrative', 'structures'),
-(60, 57, '用户组管理', '/groups/list', '', 1, 0, 1, 47, 'Administrative', 'groups'),
+(58, 57, '岗位管理', 'position/list', '', 1, 0, 1, 31, 'Administrative', 'position'),
+(59, 57, '部门管理', 'structures/list', '', 1, 0, 1, 39, 'Administrative', 'structures'),
+(60, 57, '用户组管理', 'groups/list', '', 1, 0, 1, 47, 'Administrative', 'groups'),
 (61, 52, '账户管理', '', '', 1, 0, 1, 62, 'Administrative', ''),
-(62, 61, '账户列表', '/users/list', '', 1, 0, 1, 55, 'Administrative', 'users');
+(62, 61, '账户列表', 'users/list', '', 1, 0, 1, 55, 'Administrative', 'users');
 
 -- --------------------------------------------------------
 
