@@ -82,6 +82,8 @@ VueThink是基于MIT协议的开源框架，它完全免费。你可以免费下
 
 服务端开发手册请参考：<http://www.kancloud.cn/manual/thinkphp5/118003>
 
+当访问 <http://localhost>, 出现“vuethink接口”即代表后端接口搭建成功。
+
 p.s 如果使用的nginx服务，请设置重写规则
 ```
 location / {
