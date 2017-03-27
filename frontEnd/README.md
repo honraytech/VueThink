@@ -15,12 +15,6 @@ VueThink是一套基于Vue全家桶（Vue2.x + Vue-router2.x + Vuex）+ Thinkphp
 * 用户组管理
 * 用户管理
 ```
-### Demo
-演示地址：<http://demo.vuethink.com>
-
-用户名：user01
-
-密码：user01
 
 ### 开发依赖
 * vue <https://vuefe.cn/v2/guide/>
@@ -42,12 +36,16 @@ VueThink是一套基于Vue全家桶（Vue2.x + Vue-router2.x + Vuex）+ Thinkphp
 
 附上接口文档：<http://rap.taobao.org/workspace/myWorkspace.do?projectId=15385#128405>
 
-### Server搭建
-参考地址：<https://github.com/honraytech/VueThink/tree/master/php>
 
-### 运行程序
+### 前端部署
 ```
-程序运行之前需搭建好Server端
+部署前准备
+1.安装node.js
+  前端部分是基于node.js上运行的，所以必须先安装node.js，版本要求为6.9.0以上(推荐安装官方推荐版本)，下载地址：https://nodejs.org/zh-cn/
+2.程序运行之前需搭建好Server端
+  vueThink的后端搭建请参考这里（https://github.com/honraytech/VueThink/tree/master/php），此处不再多述。
+  
+完成以上两个步骤之后，我们进入到frontEnd这个目录，然后按顺序执行以下两行代码就可以愉快地玩耍了。
 npm install
 npm run dev
 ```
