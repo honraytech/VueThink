@@ -119,7 +119,7 @@
 </style>
 <script>
   import leftMenu from './Common/leftMenu.vue'
-  import changePwd from './account/changePwd.vue'
+  import changePwd from './Account/changePwd.vue'
   import http from '../assets/js/http'
 
   export default {
