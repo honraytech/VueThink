@@ -101,10 +101,6 @@ location / {
 
 ### 前端搭建
 ```
-前端运行只需要执行以下两个命令行
-npm install
-npm run dev
-
-P.S 在前端服务启动之前，要先启动后端的服务，不然只是一个脚手架
+请参考frontEnd里的README文件
 ```
 
