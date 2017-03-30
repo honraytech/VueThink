@@ -19,8 +19,8 @@ class Base extends Common
         $param = $this->param;
         $username = $param['username'];
         $password = $param['password'];
-        $verifyCode = empty($param['verifyCode'])? $param['verifyCode']: '';
-        $isRemember = empty($param['isRemember'])? $param['isRemember']: '';
+        $verifyCode = !empty($param['verifyCode'])? $param['verifyCode']: '';
+        $isRemember = !empty($param['isRemember'])? $param['isRemember']: '';
         $data = $userModel->login($username, $password, $verifyCode, $isRemember);
         if (!$data) {
             return resultArray(['error' => $userModel->getError()]);
