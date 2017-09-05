@@ -1,5 +1,5 @@
 <template>
-	<el-dialog ref="dialog" custom-class="w-400 h-300" title="修改密码">
+	<el-dialog :visible.sync="dialogVisible" custom-class="w-400 h-300" title="修改密码">
 		<div class="ovf-auto">
 			<el-form ref="form" :model="form" :rules="rules" label-width="80px">
 				<el-form-item label="旧密码" prop="old_pwd">
@@ -24,6 +24,7 @@
   export default {
     data() {
       return {
+      	dialogVisible: false,
         disable: false,
         form: {
           auth_key: '',
@@ -44,10 +45,10 @@
     },
     methods: {
       open() {
-        this.$refs.dialog.open()
+        this.dialogVisible = true
       },
       close() {
-        this.$refs.dialog.close()
+        this.dialogVisible = false
       },
       submit() {
         this.$refs.form.validate((pass) => {
