@@ -25,7 +25,6 @@
 			</el-col>
 		</el-col>
 		<el-col :span="24" class="panel-center">
-			<!--<el-col :span="4">-->
 			<aside class="w-180 ovf-hd" v-show="!showLeftMenu">
 				<leftMenu :menuData="menuData" :menu="menu" ref="leftMenu"></leftMenu>
 			</aside>

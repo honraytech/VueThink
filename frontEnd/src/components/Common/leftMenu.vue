@@ -5,7 +5,7 @@
       background-color="#324057" 
       text-color="#fff"
       active-text-color="#e4ba55">
-      <el-submenu v-for="menu in menuData" :key="menu.id" :index="menu.id">
+      <el-submenu v-for="menu in menuData" :key="menu.id" :index="menu.id.toString()">
         <template slot="title">
           <i class="el-icon-menu"></i>
           <span>{{menu.title}}</span>
