@@ -47,8 +47,8 @@ VueThink是基于MIT协议的开源框架，它完全免费。你可以免费下
 欢迎加入qq群：340506819
 
 ### 开发依赖
-* vue <https://vuefe.cn/v2/guide/>
-* element-ui@1.1.3  <http://element.eleme.io/1.1/#/zh-CN/component/installation>
+* vue <https://cn.vuejs.org/v2/guide/>
+* element-ui@2.1.0 <http://element.eleme.io/#/zh-CN/component/installation>
 * axios  <https://github.com/mzabriskie/axios>
 * fontawesome <http://fontawesome.io/icons/>
 * js-cookie  <https://github.com/js-cookie/js-cookie>
