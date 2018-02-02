@@ -6,8 +6,9 @@
 			</el-form-item>
 			<el-form-item label="LOGO">
 				<el-upload
+        class="upload-demo"
 				:action="uploadUrl"
-				type="drag"
+				drag
 				:thumbnail-mode="true"
 				:on-preview="viewPic"
 				:on-remove="handleRemove"

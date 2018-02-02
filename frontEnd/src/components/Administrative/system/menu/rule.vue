@@ -1,8 +1,8 @@
 <template>
-	<el-dialog ref="dialog" custom-class="w-900 h-480 ovf-auto" title="节点列表">
+	<el-dialog :visible.sync="dialogToggle" custom-class="w-900 h-480 ovf-auto" title="节点列表">
 		<div class="pos-rel h-60">
 			<el-input placeholder="请输入内容" v-model="keyword" class="search-btn w-300">
-				<el-button slot="append" icon="search" @click="searchMsg()"></el-button>
+				<el-button slot="append" icon="el-icon-search" @click="searchMsg()"></el-button>
 			</el-input>
 		</div>
 		<div>
@@ -25,12 +25,11 @@
 				width="180">
 				</el-table-column>
 				<el-table-column
-				inline-template
 				label="操作"
 				width="100">
-					<div>
-						<el-button size="small" @click="selectRule(row)">选择</el-button>
-					</div>
+					<template slot-scope="scope">
+						<el-button size="small" @click="selectRule(scope.row)">选择</el-button>
+					</template>
 				</el-table-column>
 			</el-table>
 		</div>
@@ -49,16 +48,17 @@
   export default {
     data() {
       return {
+        dialogToggle: false,
         keyword: '',
         tableData: []
       }
     },
     methods: {
       open() {
-        this.$refs.dialog.open()
+        this.dialogToggle = true
       },
       closeDialog() {
-        this.$refs.dialog.close()
+        this.dialogToggle = false
       },
       selectRule(item) {
         setTimeout(() => {

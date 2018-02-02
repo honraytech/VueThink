@@ -37,8 +37,12 @@
         <template scope="scope">
   				<div>
   					<span>
-  						<router-link :to="{ name: 'positionEdit', params: { id: scope.row.id }}" class="btn-link edit-btn">
-  						编辑
+  						<router-link :to="{ name: 'positionEdit', params: { id: scope.row.id }}">
+  						  <el-button
+                size="small"
+                type="primary">
+                编辑
+                </el-button>
   						</router-link>
   					</span>
   					<span>

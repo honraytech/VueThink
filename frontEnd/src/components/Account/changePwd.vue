@@ -1,5 +1,5 @@
 <template>
-	<el-dialog ref="dialog" custom-class="w-400 h-300" title="修改密码">
+	<el-dialog :visible.sync="dialogToggle" custom-class="w-400 h-300" title="修改密码">
 		<div class="ovf-auto">
 			<el-form ref="form" :model="form" :rules="rules" label-width="80px">
 				<el-form-item label="旧密码" prop="old_pwd">
@@ -10,9 +10,9 @@
 				</el-form-item>
 			</el-form>
 		</div>
-		<div class="p-t-20">
-			<el-button type="primary" class="fl m-l-20" :disabled="disable" @click="submit()">提交</el-button>
-		</div>
+    <div class="p-t-20">
+      <el-button type="primary" class="fl m-l-20" :disabled="disable" @click="submit()">提交</el-button>
+    </div>
 	</el-dialog>
 </template>
 <style>
@@ -25,6 +25,7 @@
     data() {
       return {
         disable: false,
+        dialogToggle: false,
         form: {
           auth_key: '',
           old_pwd: '',
@@ -33,21 +34,21 @@
         rules: {
           old_pwd: [
             { required: true, message: '请输入旧密码', trigger: 'blur' },
-            { min: 6, max: 12, message: '长度在 6 到 12 个字符', trigger: 'blur' }
+            { min: 5, max: 12, message: '长度在 5 到 12 个字符', trigger: 'blur' }
           ],
           new_pwd: [
             { required: true, message: '请输入新密码', trigger: 'blur' },
-            { min: 6, max: 12, message: '长度在 6 到 12 个字符', trigger: 'blur' }
+            { min: 5, max: 12, message: '长度在 5 到 12 个字符', trigger: 'blur' }
           ]
         }
       }
     },
     methods: {
       open() {
-        this.$refs.dialog.open()
+        this.dialogToggle = true
       },
       close() {
-        this.$refs.dialog.close()
+        this.dialogToggle = false
       },
       submit() {
         this.$refs.form.validate((pass) => {

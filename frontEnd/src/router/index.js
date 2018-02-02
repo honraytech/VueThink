@@ -1,25 +1,29 @@
-import Login from './components/Account/Login.vue'
-import refresh from './components/refresh.vue'
-import Home from './components/Home.vue'
-import menuList from './components/Administrative/system/menu/list.vue'
-import menuAdd from './components/Administrative/system/menu/add.vue'
-import menuEdit from './components/Administrative/system/menu/edit.vue'
-import systemConfig from './components/Administrative/system/config/add.vue'
-import ruleList from './components/Administrative/system/rule/list.vue'
-import ruleAdd from './components/Administrative/system/rule/add.vue'
-import ruleEdit from './components/Administrative/system/rule/edit.vue'
-import positionList from './components/Administrative/structures/position/list.vue'
-import positionAdd from './components/Administrative/structures/position/add.vue'
-import positionEdit from './components/Administrative/structures/position/edit.vue'
-import structuresList from './components/Administrative/structures/structures/list.vue'
-import structuresAdd from './components/Administrative/structures/structures/add.vue'
-import structuresEdit from './components/Administrative/structures/structures/edit.vue'
-import groupsList from './components/Administrative/structures/groups/list.vue'
-import groupsAdd from './components/Administrative/structures/groups/add.vue'
-import groupsEdit from './components/Administrative/structures/groups/edit.vue'
-import usersList from './components/Administrative/personnel/users/list.vue'
-import usersAdd from './components/Administrative/personnel/users/add.vue'
-import usersEdit from './components/Administrative/personnel/users/edit.vue'
+import Vue from 'vue'
+import Router from 'vue-router'
+import Login from '@/components/Account/Login.vue'
+import refresh from '@/components/refresh.vue'
+import Home from '@/components/Home.vue'
+import menuList from '@/components/Administrative/system/menu/list.vue'
+import menuAdd from '@/components/Administrative/system/menu/add.vue'
+import menuEdit from '@/components/Administrative/system/menu/edit.vue'
+import systemConfig from '@/components/Administrative/system/config/add.vue'
+import ruleList from '@/components/Administrative/system/rule/list.vue'
+import ruleAdd from '@/components/Administrative/system/rule/add.vue'
+import ruleEdit from '@/components/Administrative/system/rule/edit.vue'
+import positionList from '@/components/Administrative/structures/position/list.vue'
+import positionAdd from '@/components/Administrative/structures/position/add.vue'
+import positionEdit from '@/components/Administrative/structures/position/edit.vue'
+import structuresList from '@/components/Administrative/structures/structures/list.vue'
+import structuresAdd from '@/components/Administrative/structures/structures/add.vue'
+import structuresEdit from '@/components/Administrative/structures/structures/edit.vue'
+import groupsList from '@/components/Administrative/structures/groups/list.vue'
+import groupsAdd from '@/components/Administrative/structures/groups/add.vue'
+import groupsEdit from '@/components/Administrative/structures/groups/edit.vue'
+import usersList from '@/components/Administrative/personnel/users/list.vue'
+import usersAdd from '@/components/Administrative/personnel/users/add.vue'
+import usersEdit from '@/components/Administrative/personnel/users/edit.vue'
+
+Vue.use(Router)
 
 /**
  * meta参数解析
@@ -101,3 +105,4 @@ const routes = [
   }
 ]
 export default routes
+

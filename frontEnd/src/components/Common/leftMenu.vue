@@ -1,11 +1,11 @@
 <template>
-<!-- <div>
-<el-menu mode="vertical" default-active="/table" class="el-menu-vertical-demo" @select="handleselect" theme="dark" router>
-<el-menu-item-group v-for="menu in menuData" :title="menu.title">
-<el-menu-item v-for="item in menu.items" :index="item.path">&nbsp;&nbsp;&nbsp;&nbsp;{{item.name}}</el-menu-item>
-</el-menu-item-group>
-</el-menu>
-</div> -->
+  <!-- <div>
+    <el-menu mode="vertical" default-active="/table" class="el-menu-vertical-demo" @select="handleselect" theme="dark" router>
+      <el-menu-item-group v-for="menu in menuData" :title="menu.title">
+        <el-menu-item v-for="item in menu.items" :index="item.path">{{item.name}}</el-menu-item>
+      </el-menu-item-group>
+    </el-menu>
+  </div> -->
 
 	<div>  
 		<div v-for="secMenu in menuData">

@@ -8,7 +8,7 @@
 			</div>
 			<div class="fl w-200 m-l-30">
 				<el-input placeholder="请输入用户名" v-model="keywords">
-					<el-button slot="append" icon="search" @click="search()"></el-button>
+					<el-button slot="append" icon="el-icon-search" @click="search()"></el-button>
 				</el-input>
 			</div>
 		</div>
@@ -49,8 +49,12 @@
         <template scope="scope">
           <div>
             <span>
-              <router-link :to="{ name: 'usersEdit', params: { id: scope.row.id }}" class="btn-link edit-btn">
-            编辑
+              <router-link :to="{ name: 'usersEdit', params: { id: scope.row.id }}">
+                <el-button
+                size="small"
+                type="primary">
+                编辑
+                </el-button>
               </router-link>
             </span>
             <span>
