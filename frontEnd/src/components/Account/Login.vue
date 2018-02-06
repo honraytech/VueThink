@@ -36,7 +36,7 @@
         },
         requireVerify: false,
         verifyUrl: '',
-        verifyImg: window.HOST + 'admin/base/getVerify',
+        verifyImg: window.HOST + '/admin/base/getVerify',
         rules2: {
           username: [
             { required: true, message: '请输入账号', trigger: 'blur' }

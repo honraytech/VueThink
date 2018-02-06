@@ -92,7 +92,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: utils.assetsPath('[name].[ext]')
+              name: utils.assetsPath('../[name]')
             }
           }
         ]

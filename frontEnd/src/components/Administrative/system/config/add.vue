@@ -118,7 +118,7 @@
         this.handelResponse(res, (data) => {
           this.form.SYSTEM_NAME = data.SYSTEM_NAME
           this.form.IDENTIFYING_CODE = data.IDENTIFYING_CODE
-          this.form.LOGIN_SESSION_VALID = data.LOGIN_SESSION_VALID
+          this.form.LOGIN_SESSION_VALID = parseInt(data.LOGIN_SESSION_VALID)
           this.form.LOGO_TYPE = data.LOGO_TYPE
           if (data.SYSTEM_LOGO) {
             let img = window.HOST + data.SYSTEM_LOGO

@@ -2,9 +2,11 @@
   <div>
     <el-menu mode="vertical" class="el-menu-vertical-demo" 
       router 
-      background-color="#324057" 
+      background-color="#324057"
+      :default-active="$route.path"
       text-color="#fff"
-      active-text-color="#e4ba55">
+      active-text-color="#e4ba55"
+      @open="handleOpen">
       <el-submenu v-for="menu in menuData" :key="menu.id" :index="menu.id.toString()">
         <template slot="title">
           <i class="el-icon-menu"></i>
@@ -23,10 +25,15 @@ export default {
   props: ['menuData', 'menu'],
   data() {
     return {
+      actived: '54'
     }
   },
   methods: {
-    routerChange(item) 	{
+    handleOpen(index, indexPath) {
+      console.log(index)
+      console.log(indexPath)
+    },
+    routerChange(item) {
       // 与当前页面路由相等则刷新页面
       if (item.url != this.$route.path) {
         router.push(item.url)
