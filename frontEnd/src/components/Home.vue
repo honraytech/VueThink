@@ -120,7 +120,7 @@
   .aside{
     width: 220px !important;
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: scroll !important;
   }
 </style>
 <script>
