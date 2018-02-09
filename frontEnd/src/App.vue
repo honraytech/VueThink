@@ -47,7 +47,30 @@ export default {
 			transform: scale(0);
 		}
 	}
+	/* 滚动条样式 */
+	::-webkit-scrollbar {
+	width: 6px;
+	background-color: #f1f2f7;
+	}
+	::-webkit-scrollbar-thumb {
+	background-color: #c1c1c1;
+	border-radius: 4px;
+	}
 
+	::-moz-scrollbar {
+	width: 6px;
+	background-color: transparent;
+	}
+	::-moz-scrollbar-thumb {
+	background-color: #c1c1c1;
+	border-radius: 4px;
+	}
+	html{
+		height: 100%;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+	}
 	body {
 		margin: 0px;
 		padding: 0px;
@@ -55,6 +78,9 @@ export default {
 		font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
 		font-weight: 400;
 		-webkit-font-smoothing: antialiased;
+		height: 100%;
+		width: 100%;
+		overflow: hidden;
 	}
 
 	#app {

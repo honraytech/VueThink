@@ -30,8 +30,7 @@ export default {
   },
   methods: {
     handleOpen(index, indexPath) {
-      console.log(index)
-      console.log(indexPath)
+
     },
     routerChange(item) {
       // 与当前页面路由相等则刷新页面

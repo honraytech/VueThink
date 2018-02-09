@@ -23,11 +23,6 @@
 			prop="title"
 			label="标题">
 			</el-table-column>
-		<!-- <el-table-column
-		prop="menu_type"
-		label="类型"
-		width="200">
-		</el-table-column> -->
 			<el-table-column
 			label="状态"
 			width="100">

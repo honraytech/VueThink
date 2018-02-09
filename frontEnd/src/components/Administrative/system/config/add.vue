@@ -75,13 +75,13 @@
       add() {
         this.$refs.form.validate((pass) => {
           if (pass) {
-            this.isLoading = !this.isLoading
+            this.isLoading = true
             this.apiPost('admin/systemConfigs', this.form).then((res) => {
               this.handelResponse(res, (data) => {
+                this.isLoading = false
                 _g.toastMsg('success', '提交成功')
-                this.isLoading = !this.isLoading
               }, () => {
-                this.isLoading = !this.isLoading
+                this.isLoading = false
               })
             })
           }

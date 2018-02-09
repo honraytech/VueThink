@@ -43,15 +43,16 @@
       add(form) {
         this.$refs[form].validate((valid) => {
           if (valid) {
-            this.isLoading = !this.isLoading
+            this.isLoading = true
             this.apiPost('admin/posts', this.form).then((res) => {
               this.handelResponse(res, (data) => {
+                this.isLoading = false
                 _g.toastMsg('success', '添加成功')
                 setTimeout(() => {
                   this.goback()
                 }, 1500)
               }, () => {
-                this.isLoading = !this.isLoading
+                this.isLoading = false
               })
             })
           }

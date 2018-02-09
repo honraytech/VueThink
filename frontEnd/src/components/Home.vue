@@ -10,7 +10,7 @@
         </template>
 			</el-col>
 			<el-col :span="16" class="ofv-hd">
-				<div class="fl p-l-20 p-r-20 top-menu" :class="{'top-active': menu.selected}" v-for="menu in topMenu" @click="switchTopMenu(menu)">{{menu.title}}</div>
+				<div class="fl p-l-20 p-r-20 top-menu" :class="{'top-active': menu.selected}" v-for="menu in topMenu" :key="menu.id" @click="switchTopMenu(menu)">{{menu.title}}</div>
 			</el-col>
 			<el-col :span="4" class="pos-rel">
 				<el-dropdown @command="handleMenu" class="user-menu">
@@ -25,7 +25,7 @@
 			</el-col>
 		</el-col>
 		<el-col :span="24" class="panel-center">
-			<aside class="w-180 ovf-hd" v-show="!showLeftMenu">
+			<aside class="ovf-hd aside" v-show="!showLeftMenu">
 				<leftMenu :menuData="menuData" :menu="menu" ref="leftMenu"></leftMenu>
 			</aside>
 			<section class="panel-c-c" :class="{'hide-leftMenu': hasChildMenu}">
@@ -59,6 +59,7 @@
 		top: 0px;
 		bottom: 0px;
 		width: 100%;
+    height: 100%;
 	}
 	
 	.panel-top {
@@ -71,6 +72,7 @@
 	.panel-center {
 		background: #324057;
 		position: absolute;
+    height: 100%;
 		top: 60px;
 		bottom: 0px;
 		overflow: hidden;
@@ -82,7 +84,7 @@
 		right: 0px;
 		top: 0px;
 		bottom: 0px;
-		left: 180px;
+		left: 220px;
 		overflow-y: scroll;
 		padding: 20px;
 	}
@@ -114,7 +116,12 @@
 	}
 	.hide-leftMenu {
 		left: 0px;
-	}
+  }
+  .aside{
+    width: 220px !important;
+    height: 100%;
+    overflow-y: scroll;
+  }
 </style>
 <script>
   import leftMenu from './Common/leftMenu.vue'

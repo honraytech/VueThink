@@ -17,7 +17,7 @@
 			</el-form-item>
 			<el-form-item label="上级菜单" prop="pid">
 				<el-select disabled v-model="form.pid" placeholder="请选择活动区域" class="w-200">
-					<el-option v-for="item in options" :label="item.title" :value="item.id"></el-option>
+					<el-option v-for="item in options" :label="item.title" :value="item.id" :key="item.id"></el-option>
 				</el-select>
 			</el-form-item>
 			<el-form-item label="路径">
@@ -33,7 +33,7 @@
 				<el-input v-model="form.sort" class="h-40 w-200"></el-input>
 			</el-form-item>
 			<el-form-item>
-				<el-button type="primary" @click="edit('form')" :loading="isLoading">提交</el-button>
+				<el-button type="primary" @click="edit('form')" :loading="loading">提交</el-button>
 				<el-button @click="goback()">返回</el-button>
 			</el-form-item>
 		</el-form>
@@ -84,17 +84,20 @@
     },
     methods: {
       edit(form) {
+        this.loading = true
         this.$refs.form.validate((pass) => {
           if (pass) {
-            this.isLoading = !this.isLoading
+            this.isLoading = true
             this.apiPut('admin/menus/', this.id, this.form).then((res) => {
+              this.loading = false
               this.handelResponse(res, (data) => {
+                this.isLoading = false
                 _g.toastMsg('success', '编辑成功')
                 setTimeout(() => {
                   this.goback()
                 }, 1500)
               }, () => {
-                this.isLoading = !this.isLoading
+                this.isLoading = false
               })
             })
           }

@@ -19,7 +19,6 @@ const apiMethods = {
         axios.post(url, data).then((response) => {
           resolve(response.data)
         }).catch((response) => {
-          console.log('f', response)
           resolve(response)
           bus.$message({
             message: '请求超时，请检查网络',
@@ -71,7 +70,6 @@ const apiMethods = {
       if (res.code) {
         switch (res.code) {
           case 101:
-            console.log('cookie = ', Cookies.get('rememberPwd'))
             if (Cookies.get('rememberPwd')) {
               let data = {
                 rememberKey: Lockr.get('rememberKey')
@@ -101,12 +99,12 @@ const apiMethods = {
             _g.toastMsg('error', res.error)
         }
       } else {
-        console.log('default error')
       }
     },
     resetCommonData(data) {
       _(data.menusList).forEach((res, key) => {
         if (key == 0) {
+          // 选中第一个一级菜单
           res.selected = true
         } else {
           res.selected = false

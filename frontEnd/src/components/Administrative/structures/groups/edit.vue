@@ -6,7 +6,7 @@
       </el-form-item>
       <el-form-item label="父级用户组" prop="pid">
         <el-select v-model="form.pid" placeholder="父级用户组" class="w-200">
-          <el-option v-for="item in options" :label="item.title" :value="item.id"></el-option>
+          <el-option v-for="item in options" :label="item.title" :value="item.id" :key="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="备注">
@@ -20,16 +20,16 @@
       </el-form-item>
       <el-form-item label="权限分配">
         <div class="bor-gray h-400 ovf-y-auto bor-ra-5 bg-wh">
-          <div v-for="item in nodes">
+          <div v-for="item in nodes" :key="item.id">
             <div class="bor-b-ccc bg-gra p-l-10 p-r-10">
               <el-checkbox v-model="item.check" @change="selectProjectRule(item)">{{item.else}}</el-checkbox>
             </div>
-            <div v-for="childItem in item.child">
+            <div v-for="childItem in item.child" :key="childItem.id">
               <div class="p-l-20 bor-b-ccc">
                 <el-checkbox v-model="childItem.check" @change="selectModuleRule(childItem, item, childItem.child)">{{childItem.else}}</el-checkbox>
               </div>
               <div class="p-l-40 bor-b-ccc bg-gra">
-                <el-checkbox v-for="grandChildItem in childItem.child" v-model="grandChildItem.check" @change="selectActionRule(grandChildItem, childItem, item)">{{grandChildItem.else}}</el-checkbox>
+                <el-checkbox v-for="grandChildItem in childItem.child" :key="grandChildItem.id" v-model="grandChildItem.check" @change="selectActionRule(grandChildItem, childItem, item)">{{grandChildItem.else}}</el-checkbox>
               </div>
             </div>
           </div>
@@ -73,15 +73,16 @@
         this.form.rules = this.selectedNodes.toString()
         this.$refs[form].validate((valid) => {
           if (valid) {
-            this.isLoading = !this.isLoading
+            this.isLoading = true
             this.apiPut('admin/groups/', this.form.id, this.form).then((res) => {
               this.handelResponse(res, (data) => {
+                this.isLoading = false
                 _g.toastMsg('success', '编辑成功')
                 setTimeout(() => {
                   this.goback()
                 }, 1500)
               }, () => {
-                this.isLoading = !this.isLoading
+                this.isLoading = false
               })
             })
           }
@@ -98,7 +99,6 @@
       },
       getGroups() {
         this.apiGet('admin/groups').then((res) => {
-          console.log('res = ', _g.j2s(res))
           this.handelResponse(res, (data) => {
             _(data).forEach((ret) => {
               ret.id = ret.id.toString()

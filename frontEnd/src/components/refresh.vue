@@ -7,7 +7,7 @@ export default {
     if (this.$route.query.name) {
       router.replace({ name: this.$route.query.name })
     } else {
-      console.log('refresh fail')
+
     }
   }
 }

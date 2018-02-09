@@ -12,7 +12,7 @@
 			</el-form-item>
 			<el-form-item label="部门" prop="structure_id">
 				<el-select v-model="form.structure_id" placeholder="请选择部门" class="w-200">
-					<el-option v-for="item in orgsOptions" :label="item.title" :value="item.id"></el-option>
+					<el-option v-for="item in orgsOptions" :label="item.title" :value="item.id" :key="item.id"></el-option>
 				</el-select>
 			</el-form-item>
 			<el-form-item label="备注">
@@ -20,7 +20,7 @@
 			</el-form-item>
 			<el-form-item label="用户组">
 				<el-checkbox-group v-model="selectedGroups">
-					<el-checkbox v-for="item in groupOptions" :label="item.title" class="form-checkbox"></el-checkbox>
+					<el-checkbox v-for="item in groupOptions" :label="item.title" class="form-checkbox" :key="item.id"></el-checkbox>
 				</el-checkbox-group>
 			</el-form-item>
 			<el-form-item>
@@ -91,19 +91,19 @@
           _g.toastMsg('warning', '请选择用户组')
           return
         }
-        console.log('res = ', _g.j2s(this.form))
         this.$refs.form.validate((pass) => {
           if (pass) {
-            this.isLoading = !this.isLoading
+            this.isLoading = true
             this.apiPost('admin/users', this.form).then((res) => {
               this.handelResponse(res, (data) => {
+                this.isLoading = false
                 _g.toastMsg('success', '添加成功')
                 _g.clearVuex('setUsers')
                 setTimeout(() => {
                   this.goback()
                 }, 1500)
               }, () => {
-                this.isLoading = !this.isLoading
+                this.isLoading = false
               })
             })
           }

@@ -12,7 +12,7 @@
 			</el-form-item>
 			<el-form-item label="所属组织架构" prop="structure_id">
 				<el-select v-model="form.structure_id" placeholder="请选择组织架构" class="w-200">
-					<el-option v-for="item in orgsOptions" :label="item.title" :value="item.id"></el-option>
+					<el-option v-for="item in orgsOptions" :label="item.title" :value="item.id" :key="item.id"></el-option>
 				</el-select>
 			</el-form-item>
 			<el-form-item label="备注">
@@ -20,7 +20,7 @@
 			</el-form-item>
 			<el-form-item label="用户组">
 				<el-checkbox-group v-model="selectedGroups">
-					<el-checkbox v-for="item in groupOptions" :label="item.else" class="form-checkbox"></el-checkbox>
+					<el-checkbox v-for="item in groupOptions" :label="item.else" class="form-checkbox" :key="item.id"></el-checkbox>
 				</el-checkbox-group>
 			</el-form-item>
 			<el-form-item>
@@ -85,36 +85,26 @@
         return temp
       },
       add() {
-        // _(this.groupOptions).forEach((res) => {
-        //   console.log(this.selectedGroups.toString().indexOf(res.else))
-        //   if (this.selectedGroups.toString().indexOf(res.else) > -1) {
-        //     this.selectedIds.push(res.id)
-        //   }
-        // })
-        // console.log('groupOptions = ', _g.j2s(this.groupOptions))
-        // console.log('selectedGroups = ', _g.j2s(this.selectedGroups))
-        // console.log('selectedIds = ', _g.j2s(this.selectedIds))
-
         if (!this.selectCheckbox()) {
           _g.toastMsg('warning', '请选择用户组')
           return
         }
-        console.log('selectedIds = ', _g.j2s(this.selectedIds))
         this.$refs.form.validate((pass) => {
           if (pass) {
-            this.isLoading = !this.isLoading
+            this.isLoading = true
             if (this.password) {
               this.form.password = this.password
             }
             this.apiPut('admin/users/', this.id, this.form).then((res) => {
               this.handelResponse(res, (data) => {
+                this.isLoading = false
                 _g.toastMsg('success', '添加成功')
                 _g.clearVuex('setUsers')
                 setTimeout(() => {
                   this.goback()
                 }, 1500)
               }, () => {
-                this.isLoading = !this.isLoading
+                this.isLoading = false
               })
             })
           }
@@ -127,7 +117,6 @@
             resolve(data)
           } else {
             this.apiGet('admin/groups').then((res) => {
-              console.log('groups = ', _g.j2s(res))
               this.handelResponse(res, (data) => {
                 resolve(data)
               })
@@ -146,7 +135,6 @@
         this.getAllOrgs()
         this.groupOptions = await this.getAllGroups()
         this.apiGet('admin/users/' + this.id).then((res) => {
-          console.log('res = ', _g.j2s(res))
           this.handelResponse(res, (data) => {
             this.form.username = data.username
             this.form.realname = data.realname
