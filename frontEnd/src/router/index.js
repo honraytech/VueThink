@@ -1,5 +1,10 @@
+// 依赖
 import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
+import store from '@/vuex/store.js'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+// 组件
 import Login from '@/components/Account/Login.vue'
 import refresh from '@/components/refresh.vue'
 import Home from '@/components/Home.vue'
@@ -23,7 +28,7 @@ import usersList from '@/components/Administrative/personnel/users/list.vue'
 import usersAdd from '@/components/Administrative/personnel/users/add.vue'
 import usersEdit from '@/components/Administrative/personnel/users/edit.vue'
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
 /**
  * meta参数解析
@@ -104,5 +109,23 @@ const routes = [
     ]
   }
 ]
-export default routes
+
+const router = new VueRouter({
+  mode: 'history',
+  base: __dirname,
+  routes
+})
+router.beforeEach((to, from, next) => {
+  const hideLeft = to.meta.hideLeft
+  store.dispatch('showLeftMenu', hideLeft)
+  store.dispatch('showLoading', true)
+  NProgress.start()
+  next()
+})
+
+router.afterEach(transition => {
+  NProgress.done()
+})
+
+export default router
 

@@ -127,6 +127,11 @@
   import leftMenu from './Common/leftMenu.vue'
   import changePwd from './Account/changePwd.vue'
   import http from '../assets/js/http'
+  import Lockr from 'lockr'
+  import Cookies from 'js-cookie'
+  import _ from 'lodash'
+  import _g from '@/assets/js/global'
+  import config from '@/assets/js/config.js'
 
   export default {
     data() {
@@ -166,7 +171,7 @@
               Cookies.remove('rememberPwd')
               _g.toastMsg('success', '退出成功')
               setTimeout(() => {
-                router.replace('/')
+                this.$router.replace('/')
               }, 1500)
             })
           })
@@ -176,9 +181,9 @@
       },
       switchTopMenu(item) {
         if (!item.child) {
-          router.push(item.url)
+          this.$router.push(item.url)
         } else {
-          router.push(item.child[0].child[0].url)
+          this.$router.push(item.child[0].child[0].url)
         }
       },
       handleMenu(val) {
@@ -200,7 +205,7 @@
             document.title = data.SYSTEM_NAME
             this.logo_type = data.LOGO_TYPE
             this.title = data.SYSTEM_NAME
-            this.img = window.HOST + data.SYSTEM_LOGO
+            this.img = config.HOST + data.SYSTEM_LOGO
           })
         })
       },
@@ -215,7 +220,7 @@
       if (!authKey || !sessionId) {
         _g.toastMsg('warning', '您尚未登录')
         setTimeout(() => {
-          router.replace('/')
+          this.$router.replace('/')
         }, 1500)
         return
       }
@@ -235,11 +240,11 @@
     },
     computed: {
       routerShow() {
-        return store.state.routerShow
+        return this.$store.state.routerShow
       },
       showLeftMenu() {
-        this.hasChildMenu = store.state.showLeftMenu
-        return store.state.showLeftMenu
+        this.hasChildMenu = this.$store.state.showLeftMenu
+        return this.$store.state.showLeftMenu
       }
     },
     components: {

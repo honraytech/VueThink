@@ -1,3 +1,19 @@
+import store from '@/vuex/store'
+import router from '@/router/index.js'
+import axios from 'axios'
+import Lockr from 'lockr'
+import Cookies from 'js-cookie'
+import _ from 'lodash'
+import _g from '@/assets/js/global'
+import bus from '@/assets/js/bus.js'
+import config from '@/assets/js/config.js'
+
+axios.defaults.baseURL = config.HOST
+axios.defaults.timeout = 1000 * 15
+axios.defaults.headers.authKey = Lockr.get('authKey')
+axios.defaults.headers.sessionId = Lockr.get('sessionId')
+axios.defaults.headers['Content-Type'] = 'application/json'
+
 const apiMethods = {
   methods: {
     apiGet(url, data) {
@@ -110,13 +126,12 @@ const apiMethods = {
           res.selected = false
         }
       })
-      Lockr.set('menus', data.menusList)              // 菜单数据
       Lockr.set('authKey', data.authKey)              // 权限认证
       Lockr.set('rememberKey', data.rememberKey)      // 记住密码的加密字符串
-      Lockr.set('authList', data.authList)            // 权限节点列表
-      Lockr.set('userInfo', data.userInfo)            // 用户信息
-      Lockr.set('sessionId', data.sessionId)          // 用户sessionid
-      window.axios.defaults.headers.authKey = Lockr.get('authKey')
+      store.dispatch('setMenus', data.menusList)      // 菜单信息
+      store.dispatch('setRules', data.authList)       // 权限信息
+      store.dispatch('setUsers', data.userInfo)       // 用户信息
+      axios.defaults.headers.authKey = Lockr.get('authKey')
       let routerUrl = ''
       if (data.menusList[0].url) {
         routerUrl = data.menusList[0].url

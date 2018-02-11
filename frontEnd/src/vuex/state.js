@@ -5,7 +5,8 @@ const state = {
   rules: [],
   users: {},
   userGroups: [],
-  organizes: []
+  organizes: [],
+  pageSize: 15
 }
 
 export default state

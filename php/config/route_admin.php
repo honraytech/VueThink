@@ -17,7 +17,7 @@ return [
     ],
 
 	// 【基础】登录
-	'admin/base/login' => ['admin/base/login', ['method' => 'POST']],
+	'admin/base/login' => ['admin/base/login', ['method' => 'POST|GET']],
 	// 【基础】记住登录
 	'admin/base/relogin'	=> ['admin/base/relogin', ['method' => 'POST']],
 	// 【基础】修改密码

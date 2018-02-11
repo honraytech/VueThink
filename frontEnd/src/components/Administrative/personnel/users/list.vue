@@ -82,6 +82,7 @@
 <script>
   import btnGroup from '../../../Common/btn-group.vue'
   import http from '../../../../assets/js/http'
+  import _g from '@/assets/js/global'
 
   export default {
     data() {
@@ -96,13 +97,13 @@
     },
     methods: {
       search() {
-        router.push({ path: this.$route.path, query: { keywords: this.keywords, page: 1 }})
+        this.$router.push({ path: this.$route.path, query: { keywords: this.keywords, page: 1 }})
       },
       selectItem(val) {
         this.multipleSelection = val
       },
       handleCurrentChange(page) {
-        router.push({ path: this.$route.path, query: { keywords: this.keywords, page: page }})
+        this.$router.push({ path: this.$route.path, query: { keywords: this.keywords, page: page }})
       },
       confirmDelete(item) {
         this.$confirm('确认删除该用户?', '提示', {

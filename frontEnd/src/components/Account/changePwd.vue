@@ -20,6 +20,8 @@
 </style>
 <script>
   import http from '../../assets/js/http'
+  import Lockr from 'lockr'
+  import _g from '@/assets/js/global'
 
   export default {
     data() {
@@ -61,7 +63,7 @@
                 Lockr.rm('authList')
                 Lockr.rm('sessionId')
                 setTimeout(() => {
-                  router.replace('/')
+                  this.$router.replace('/')
                 }, 1500)
               }, () => {
                 this.disable = !this.disable

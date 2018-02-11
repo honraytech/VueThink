@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import moment from 'moment'
 export default (function () {
   Vue.filter('status', function (value) {
     if (value == 1) {

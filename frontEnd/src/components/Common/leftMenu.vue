@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import _g from '@/assets/js/global'
+
 export default {
   props: ['menuData', 'menu'],
   data() {

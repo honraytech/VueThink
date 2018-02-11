@@ -10,10 +10,13 @@ namespace app\admin\model;
 use think\Db;
 use app\admin\model\Common;
 use com\verify\HonrayVerify;
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Lcobucci\JWT\Parser;
+use Lcobucci\JWT\ValidationData;
 
 class User extends Common 
 {	
-    
     /**
      * 为了数据库的整洁，同时又不影响Model和Controller的名称
      * 我们约定每个模块的数据表都加上相同的前缀，比如微信模块用weixin作为数据表前缀
@@ -175,7 +178,19 @@ class User extends Common
 			return false;
 		}
 	}
-
+	/**
+	 * [getUserById 获取用户信息]
+	 * @AuthorHTL
+	 * @DateTime  2018-02-11
+	 * @param     [string]                   $uid [账号id]
+	 * @return    [type]                               [description]
+	 */
+	public function getUserById($uid){
+		$map = array(
+			'id' => $uid,
+		);
+		return $this->where($map)->find();
+	}
 	/**
 	 * [login 登录]
 	 * @AuthorHTL
@@ -236,24 +251,41 @@ class User extends Common
         	$secret['password'] = $password;
         	$data['rememberKey'] = encrypt($secret);
         }
-
-        // 保存缓存        
-        session_start();
-        $info['userInfo'] = $userInfo;
-        $info['sessionId'] = session_id();
-        $authKey = user_md5($userInfo['username'].$userInfo['password'].$info['sessionId']);
-        $info['_AUTH_LIST_'] = $dataList['rulesList'];
-        $info['authKey'] = $authKey;
-        cache('Auth_'.$authKey, null);
-        cache('Auth_'.$authKey, $info, config('LOGIN_SESSION_VALID'));
-        // 返回信息
+		$authKey = $this->createJwt($userInfo['id']);
         $data['authKey']		= $authKey;
-        $data['sessionId']		= $info['sessionId'];
         $data['userInfo']		= $userInfo;
         $data['authList']		= $dataList['rulesList'];
-        $data['menusList']		= $dataList['menusList'];
+		$data['menusList']		= $dataList['menusList'];
         return $data;
-    }
+	}
+	/**
+	 * 通过jwt获取uid
+	 * @param  string   $jwt  [jwt]
+	 */
+	public function getUid($jwt){
+        $token = (new Parser())->parse((string)$jwt);
+        $valid = new ValidationData();
+        $signer = new Sha256();
+        if($token->validate($valid) && $token->verify($signer, '&sLeYou_getuserpaydata.&')){
+			return $token->getClaim('uid');
+		}else{
+			return false;
+		}
+	}
+	/**
+	 * 生成jwt
+	 * @param  int   $uid  [用户id]
+	 */
+	public function createJwt($uid){
+		$signer = new Sha256();
+		$authKey = (new Builder())->setIssuedAt(time()) // Configures the time that the token was issue (iat claim)
+		->setNotBefore(time()) // Configures the time that the token can be used (nbf claim)
+		->setExpiration(time() + config('LOGIN_SESSION_VALID')) // Configures the expiration time of the token (nbf claim)
+		->set('uid', $uid) // Configures a new claim, called "uid"
+		->sign($signer, '&sLeYou_getuserpaydata.&') // creates a signature using "testing" 
+		->getToken(); // Retrieves the generated token
+		return (string)$authKey;
+	}
 
 	/**
 	 * 修改密码

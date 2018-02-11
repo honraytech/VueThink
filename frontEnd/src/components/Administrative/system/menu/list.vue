@@ -50,6 +50,7 @@
 <script>
   import btnGroup from '../../../Common/btn-group.vue'
   import http from '../../../../assets/js/http'
+  import _g from '@/assets/js/global'
 
   export default {
     data() {

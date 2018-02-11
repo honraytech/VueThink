@@ -1,3 +1,8 @@
+import store from '@/vuex/store'
+import router from '@/router/index.js'
+import Lockr from 'lockr'
+import bus from '@/assets/js/bus.js'
+
 const commonFn = {
   j2s(obj) {
     return JSON.stringify(obj)
