@@ -7,70 +7,16 @@ import _ from 'lodash'
 import _g from '@/assets/js/global'
 import bus from '@/assets/js/bus.js'
 import config from '@/assets/js/config.js'
+import baseHttp from '@/assets/js/base_http.js'
 
 axios.defaults.baseURL = config.HOST
 axios.defaults.timeout = 1000 * 15
 axios.defaults.headers.authKey = Lockr.get('authKey')
-axios.defaults.headers.sessionId = Lockr.get('sessionId')
 axios.defaults.headers['Content-Type'] = 'application/json'
 
 const apiMethods = {
   methods: {
-    apiGet(url, data) {
-      return new Promise((resolve, reject) => {
-        axios.get(url, data).then((response) => {
-          resolve(response.data)
-        }, (response) => {
-          reject(response)
-          _g.closeGlobalLoading()
-          bus.$message({
-            message: '请求超时，请检查网络',
-            type: 'warning'
-          })
-        })
-      })
-    },
-    apiPost(url, data) {
-      return new Promise((resolve, reject) => {
-        axios.post(url, data).then((response) => {
-          resolve(response.data)
-        }).catch((response) => {
-          resolve(response)
-          bus.$message({
-            message: '请求超时，请检查网络',
-            type: 'warning'
-          })
-        })
-      })
-    },
-    apiDelete(url, id) {
-      return new Promise((resolve, reject) => {
-        axios.delete(url + id).then((response) => {
-          resolve(response.data)
-        }, (response) => {
-          reject(response)
-          _g.closeGlobalLoading()
-          bus.$message({
-            message: '请求超时，请检查网络',
-            type: 'warning'
-          })
-        })
-      })
-    },
-    apiPut(url, id, obj) {
-      return new Promise((resolve, reject) => {
-        axios.put(url + id, obj).then((response) => {
-          resolve(response.data)
-        }, (response) => {
-          _g.closeGlobalLoading()
-          bus.$message({
-            message: '请求超时，请检查网络',
-            type: 'warning'
-          })
-          reject(response)
-        })
-      })
-    },
+    ...baseHttp,
     handelResponse(res, cb, errCb) {
       _g.closeGlobalLoading()
       if (res.code == 200) {
@@ -127,6 +73,7 @@ const apiMethods = {
         }
       })
       Lockr.set('authKey', data.authKey)              // 权限认证
+      Lockr.set('expire', data.expire)              // 权限认证
       Lockr.set('rememberKey', data.rememberKey)      // 记住密码的加密字符串
       store.dispatch('setMenus', data.menusList)      // 菜单信息
       store.dispatch('setRules', data.authList)       // 权限信息
@@ -146,20 +93,8 @@ const apiMethods = {
           _g.shallowRefresh(this.$route.name)
         }
       }, 1000)
-    },
-    reAjax(url, data) {
-      return new Promise((resolve, reject) => {
-        axios.post(url, data).then((response) => {
-          resolve(response.data)
-        }, (response) => {
-          reject(response)
-          bus.$message({
-            message: '请求超时，请检查网络',
-            type: 'warning'
-          })
-        })
-      })
     }
+
   },
   computed: {
     showLoading() {

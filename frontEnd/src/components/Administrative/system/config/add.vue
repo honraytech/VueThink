@@ -32,7 +32,7 @@
 					<el-radio label="0">关闭</el-radio>
 				</el-radio-group>
 			</el-form-item>
-			<el-form-item label="登录会话有效期" prop="LOGIN_SESSION_VALID">
+			<el-form-item label="登录会话有效期(建议不少于：600)" prop="LOGIN_SESSION_VALID">
 				<el-input v-model.number="form.LOGIN_SESSION_VALID" class="h-40 w-200"></el-input>
 			</el-form-item>
 			<el-form-item>

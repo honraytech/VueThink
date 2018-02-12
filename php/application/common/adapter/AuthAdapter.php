@@ -6,54 +6,35 @@ class AuthAdapter
 	private static $_instance;
 
 	/**
-	 * 验证码
+	 * 用户id
 	 * @var string
 	 */
-	private $auth_key;
+	private $uid;
 
-	public function __construct($auth_key) 
+	public function __construct($uid) 
 	{
-		$this->auth_key = $auth_key; 
+		$this->uid = $uid; 
 	}
 
 	//实例化权限类
-	public static function getInstance($auth_key)
-	 {
+	public static function getInstance($uid)
+	{
 		if (!(self::$_instance instanceof HonrayAuth)) {
-			self::$_instance = new HonrayAuth($auth_key);
+			self::$_instance = new HonrayAuth($uid);
 		}
 		return self::$_instance; 
 	}
 	//登录认证
 	public function checkLogin($names, $uid, $relation='or') 
 	{
-		self::getInstance($this->auth_key)->_config['AUTH_TYPE'] = 2;
+		self::getInstance($this->uid)->_config['AUTH_TYPE'] = 2;
 		if ($uid == 1){ 
 			return true;
 		}
-		if (!self::getInstance($this->auth_key)->check($names, $uid, $relation)) {
+		if (!self::getInstance($this->uid)->check($names, $uid, $relation)) {
 			return false;
 		} else {
 			return true;
 		}
-	}
-	//实时认证
-	public function checkIntime($names, $uid, $relation='or') 
-	{
-		self::getInstance($this->auth_key)->_config['AUTH_TYPE'] = 1;
-		if ($uid == 1) {
-			return true;
-		}
-		if (!self::getInstance($this->auth_key)->check($names, $uid, $relation)) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-	//更新缓存auth_list
-	public function updateCacheAuth() 
-	{
-		$res = self::getInstance($this->auth_key)->updateCacheAuth();
-		return $res;
 	}
 }

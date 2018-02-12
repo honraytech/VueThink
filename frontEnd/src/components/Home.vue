@@ -10,7 +10,7 @@
         </template>
 			</el-col>
 			<el-col :span="16" class="ofv-hd">
-				<div class="fl p-l-20 p-r-20 top-menu" :class="{'top-active': menu.selected}" v-for="menu in topMenu" :key="menu.id" @click="switchTopMenu(menu)">{{menu.title}}</div>
+				<div class="fl p-l-20 p-r-20 top-menu" :class="{'top-active': menu.selected}" v-for="menu in $store.state.menus" :key="menu.id" @click="switchTopMenu(menu)">{{menu.title}}</div>
 			</el-col>
 			<el-col :span="4" class="pos-rel">
 				<el-dropdown @command="handleMenu" class="user-menu">
@@ -137,7 +137,6 @@
     data() {
       return {
         username: '',
-        topMenu: [],
         childMenu: [],
         menuData: [],
         hasChildMenu: false,
@@ -156,18 +155,14 @@
         }).then(() => {
           _g.openGlobalLoading()
           let data = {
-            authkey: Lockr.get('authKey'),
-            sessionId: Lockr.get('sessionId')
+            authkey: Lockr.get('authKey')
           }
           this.apiPost('admin/base/logout', data).then((res) => {
             _g.closeGlobalLoading()
             this.handelResponse(res, (data) => {
-              Lockr.rm('menus')
               Lockr.rm('authKey')
+              Lockr.rm('expire')
               Lockr.rm('rememberKey')
-              Lockr.rm('authList')
-              Lockr.rm('userInfo')
-              Lockr.rm('sessionId')
               Cookies.remove('rememberPwd')
               _g.toastMsg('success', '退出成功')
               setTimeout(() => {
@@ -210,14 +205,13 @@
         })
       },
       getUsername() {
-        this.username = Lockr.get('userInfo').username
+        this.username = this.$store.state.users.username
       }
     },
     created() {
       this.getTitleAndLogo()
       let authKey = Lockr.get('authKey')
-      let sessionId = Lockr.get('sessionId')
-      if (!authKey || !sessionId) {
+      if (!authKey) {
         _g.toastMsg('warning', '您尚未登录')
         setTimeout(() => {
           this.$router.replace('/')
@@ -225,10 +219,9 @@
         return
       }
       this.getUsername()
-      let menus = Lockr.get('menus')
+      let menus = this.$store.state.menus
       this.menu = this.$route.meta.menu
       this.module = this.$route.meta.module
-      this.topMenu = menus
       _(menus).forEach((res) => {
         if (res.module == this.module) {
           this.menuData = res.child
@@ -253,7 +246,7 @@
     },
     watch: {
       '$route' (to, from) {
-        _(this.topMenu).forEach((res) => {
+        _(this.$store.state.menus).forEach((res) => {
           if (res.module == to.meta.module) {
             res.selected = true
             if (!to.meta.hideLeft) {

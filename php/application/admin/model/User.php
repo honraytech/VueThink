@@ -192,6 +192,22 @@ class User extends Common
 		return $this->where($map)->find();
 	}
 	/**
+	 * [根据uid返回用户信息(权限，菜单，用户信息)]
+	 * @AuthorHTL
+	 * @DateTime  2018-02-12
+	 * @param     [string]                   $uid [账号id]
+	 * @return    [type]                               [description]
+	 */
+	public function getInfo($uid){
+		$map['id'] = $uid;
+		$userInfo = $this->where($map)->find();
+		$dataList = $this->getMenuAndRule($userInfo['id']);
+		$data['userInfo']		= $userInfo;
+        $data['authList']		= $dataList['rulesList'];
+		$data['menusList']		= $dataList['menusList'];
+		return $data;
+	}
+	/**
 	 * [login 登录]
 	 * @AuthorHTL
 	 * @DateTime  2017-02-10T22:37:49+0800
@@ -251,11 +267,11 @@ class User extends Common
         	$secret['password'] = $password;
         	$data['rememberKey'] = encrypt($secret);
         }
-		$authKey = $this->createJwt($userInfo['id']);
-        $data['authKey']		= $authKey;
+		$jwt = $this->createJwt($userInfo['id']);
         $data['userInfo']		= $userInfo;
         $data['authList']		= $dataList['rulesList'];
 		$data['menusList']		= $dataList['menusList'];
+		$data = array_merge($data,$jwt);
         return $data;
 	}
 	/**
@@ -277,14 +293,20 @@ class User extends Common
 	 * @param  int   $uid  [用户id]
 	 */
 	public function createJwt($uid){
+		$nbf = time();
+		$expire = time() + config('LOGIN_SESSION_VALID');
 		$signer = new Sha256();
 		$authKey = (new Builder())->setIssuedAt(time()) // Configures the time that the token was issue (iat claim)
-		->setNotBefore(time()) // Configures the time that the token can be used (nbf claim)
-		->setExpiration(time() + config('LOGIN_SESSION_VALID')) // Configures the expiration time of the token (nbf claim)
+		->setNotBefore($nbf) // Configures the time that the token can be used (nbf claim)
+		->setExpiration($expire) // Configures the expiration time of the token (nbf claim)
 		->set('uid', $uid) // Configures a new claim, called "uid"
 		->sign($signer, '&sLeYou_getuserpaydata.&') // creates a signature using "testing" 
 		->getToken(); // Retrieves the generated token
-		return (string)$authKey;
+		$result = array(
+			'authKey' => (string)$authKey,
+			'expire' =>	$expire,
+		);
+		return $result;
 	}
 
 	/**
@@ -293,7 +315,7 @@ class User extends Common
 	 */
     public function setInfo($auth_key, $old_pwd, $new_pwd)
     {
-        $cache = cache('Auth_'.$auth_key);
+        $uid = $this->getUid($auth_key);
         if (!$cache) {
 			$this->error = '请先进行登录';
 			return false;
@@ -311,8 +333,7 @@ class User extends Common
 			return false; 
         }
 
-        $userInfo = $cache['userInfo'];
-        $password = $this->where('id', $userInfo['id'])->value('password');
+        $password = $this->where('id', $uid)->value('password');
         if (user_md5($old_pwd) != $password) {
             $this->error = '原密码错误';
 			return false; 
@@ -321,15 +342,8 @@ class User extends Common
             $this->error = '密码没改变';
 			return false;
         }
-        if ($this->where('id', $userInfo['id'])->setField('password', user_md5($new_pwd))) {
-            $userInfo = $this->where('id', $userInfo['id'])->find();
-            // 重新设置缓存
-            session_start();
-            $cache['userInfo'] = $userInfo;
-            $cache['authKey'] = user_md5($userInfo['username'].$userInfo['password'].session_id());
-            cache('Auth_'.$auth_key, null);
-            cache('Auth_'.$cache['authKey'], $cache, config('LOGIN_SESSION_VALID'));
-            return $cache['authKey'];//把auth_key传回给前端
+        if ($this->where('id', $uid)->setField('password', user_md5($new_pwd))) {
+            return $auth_key;//把auth_key传回给前端
         }
         
         $this->error = '修改失败';

@@ -50,11 +50,11 @@ const commonFn = {
   },
   getHasRule(val) {
     const moduleRule = 'admin'
-    let userInfo = Lockr.get('userInfo')
+    let userInfo = store.state.users
     if (userInfo.id == 1) {
       return true
     } else {
-      let authList = moduleRule + Lockr.get('authList')
+      let authList = moduleRule + store.state.rules
       return _.includes(authList, val)
     }
   }

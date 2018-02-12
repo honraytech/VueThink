@@ -35,7 +35,7 @@ class ApiCommon extends Common
             header('Content-Type:application/json; charset=utf-8');
             exit(json_encode(['code'=>103, 'error'=>'账号已被删除或禁用']));   
         }
-        $authAdapter = new AuthAdapter($authKey);
+        $authAdapter = new AuthAdapter($userInfo['id']);
         $request = Request::instance();
         $ruleName = $request->module().'-'.$request->controller() .'-'.$request->action(); 
         if (!$authAdapter->checkLogin($ruleName, $userInfo['id'])) {

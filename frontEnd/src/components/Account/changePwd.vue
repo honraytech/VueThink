@@ -60,8 +60,7 @@
               this.handelResponse(res, (data) => {
                 _g.toastMsg('success', '修改成功')
                 Lockr.rm('authKey')
-                Lockr.rm('authList')
-                Lockr.rm('sessionId')
+                Lockr.rm('expire')
                 setTimeout(() => {
                   this.$router.replace('/')
                 }, 1500)

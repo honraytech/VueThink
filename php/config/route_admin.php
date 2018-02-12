@@ -15,7 +15,10 @@ return [
         'admin/structures'	   =>'admin/structures',
         'admin/posts'          =>'admin/posts',
     ],
-
+	// 【获取信息】
+	'admin/infos/index' =>['admin/infos/index',['method' => 'POST|GET']],
+	// 刷新token
+	'admin/infos/refresh' =>['admin/infos/refresh',['method' => 'POST|GET']],
 	// 【基础】登录
 	'admin/base/login' => ['admin/base/login', ['method' => 'POST|GET']],
 	// 【基础】记住登录
