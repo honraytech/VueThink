@@ -16,11 +16,11 @@ return [
         'admin/posts'          =>'admin/posts',
     ],
 	// 【获取信息】
-	'admin/infos/index' =>['admin/infos/index',['method' => 'POST|GET']],
+	'admin/infos/index' =>['admin/infos/index',['method' => 'POST']],
 	// 刷新token
-	'admin/infos/refresh' =>['admin/infos/refresh',['method' => 'POST|GET']],
+	'admin/infos/refresh' =>['admin/infos/refresh',['method' => 'POST']],
 	// 【基础】登录
-	'admin/base/login' => ['admin/base/login', ['method' => 'POST|GET']],
+	'admin/base/login' => ['admin/base/login', ['method' => 'POST']],
 	// 【基础】记住登录
 	'admin/base/relogin'	=> ['admin/base/relogin', ['method' => 'POST']],
 	// 【基础】修改密码
