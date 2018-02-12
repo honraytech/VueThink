@@ -22,7 +22,12 @@
 
 <script>
   import http from '../../assets/js/http'
-
+  import moment from 'moment'
+  import Lockr from 'lockr'
+  import Cookies from 'js-cookie'
+  import _g from '@/assets/js/global'
+  import config from '@/assets/js/config.js'
+  
   export default {
     data() {
       return {
@@ -36,7 +41,7 @@
         },
         requireVerify: false,
         verifyUrl: '',
-        verifyImg: window.HOST + '/admin/base/getVerify',
+        verifyImg: config.HOST + '/admin/base/getVerify',
         rules2: {
           username: [
             { required: true, message: '请输入账号', trigger: 'blur' }

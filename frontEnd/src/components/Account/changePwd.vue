@@ -20,6 +20,8 @@
 </style>
 <script>
   import http from '../../assets/js/http'
+  import Lockr from 'lockr'
+  import _g from '@/assets/js/global'
 
   export default {
     data() {
@@ -58,10 +60,9 @@
               this.handelResponse(res, (data) => {
                 _g.toastMsg('success', '修改成功')
                 Lockr.rm('authKey')
-                Lockr.rm('authList')
-                Lockr.rm('sessionId')
+                Lockr.rm('expire')
                 setTimeout(() => {
-                  router.replace('/')
+                  this.$router.replace('/')
                 }, 1500)
               }, () => {
                 this.disable = !this.disable

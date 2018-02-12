@@ -1,3 +1,8 @@
+import store from '@/vuex/store'
+import router from '@/router/index.js'
+import Lockr from 'lockr'
+import bus from '@/assets/js/bus.js'
+
 const commonFn = {
   j2s(obj) {
     return JSON.stringify(obj)
@@ -45,11 +50,11 @@ const commonFn = {
   },
   getHasRule(val) {
     const moduleRule = 'admin'
-    let userInfo = Lockr.get('userInfo')
+    let userInfo = store.state.users
     if (userInfo.id == 1) {
       return true
     } else {
-      let authList = moduleRule + Lockr.get('authList')
+      let authList = moduleRule + store.state.rules
       return _.includes(authList, val)
     }
   }

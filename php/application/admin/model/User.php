@@ -10,10 +10,13 @@ namespace app\admin\model;
 use think\Db;
 use app\admin\model\Common;
 use com\verify\HonrayVerify;
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Lcobucci\JWT\Parser;
+use Lcobucci\JWT\ValidationData;
 
 class User extends Common 
 {	
-    
     /**
      * 为了数据库的整洁，同时又不影响Model和Controller的名称
      * 我们约定每个模块的数据表都加上相同的前缀，比如微信模块用weixin作为数据表前缀
@@ -175,7 +178,35 @@ class User extends Common
 			return false;
 		}
 	}
-
+	/**
+	 * [getUserById 获取用户信息]
+	 * @AuthorHTL
+	 * @DateTime  2018-02-11
+	 * @param     [string]                   $uid [账号id]
+	 * @return    [type]                               [description]
+	 */
+	public function getUserById($uid){
+		$map = array(
+			'id' => $uid,
+		);
+		return $this->where($map)->find();
+	}
+	/**
+	 * [根据uid返回用户信息(权限，菜单，用户信息)]
+	 * @AuthorHTL
+	 * @DateTime  2018-02-12
+	 * @param     [string]                   $uid [账号id]
+	 * @return    [type]                               [description]
+	 */
+	public function getInfo($uid){
+		$map['id'] = $uid;
+		$userInfo = $this->where($map)->find();
+		$dataList = $this->getMenuAndRule($userInfo['id']);
+		$data['userInfo']		= $userInfo;
+        $data['authList']		= $dataList['rulesList'];
+		$data['menusList']		= $dataList['menusList'];
+		return $data;
+	}
 	/**
 	 * [login 登录]
 	 * @AuthorHTL
@@ -236,24 +267,47 @@ class User extends Common
         	$secret['password'] = $password;
         	$data['rememberKey'] = encrypt($secret);
         }
-
-        // 保存缓存        
-        session_start();
-        $info['userInfo'] = $userInfo;
-        $info['sessionId'] = session_id();
-        $authKey = user_md5($userInfo['username'].$userInfo['password'].$info['sessionId']);
-        $info['_AUTH_LIST_'] = $dataList['rulesList'];
-        $info['authKey'] = $authKey;
-        cache('Auth_'.$authKey, null);
-        cache('Auth_'.$authKey, $info, config('LOGIN_SESSION_VALID'));
-        // 返回信息
-        $data['authKey']		= $authKey;
-        $data['sessionId']		= $info['sessionId'];
+		$jwt = $this->createJwt($userInfo['id']);
         $data['userInfo']		= $userInfo;
         $data['authList']		= $dataList['rulesList'];
-        $data['menusList']		= $dataList['menusList'];
+		$data['menusList']		= $dataList['menusList'];
+		$data = array_merge($data,$jwt);
         return $data;
-    }
+	}
+	/**
+	 * 通过jwt获取uid
+	 * @param  string   $jwt  [jwt]
+	 */
+	public function getUid($jwt){
+        $token = (new Parser())->parse((string)$jwt);
+        $valid = new ValidationData();
+        $signer = new Sha256();
+        if($token->validate($valid) && $token->verify($signer, '&sLeYou_getuserpaydata.&')){
+			return $token->getClaim('uid');
+		}else{
+			return false;
+		}
+	}
+	/**
+	 * 生成jwt
+	 * @param  int   $uid  [用户id]
+	 */
+	public function createJwt($uid){
+		$nbf = time();
+		$expire = time() + config('LOGIN_SESSION_VALID');
+		$signer = new Sha256();
+		$authKey = (new Builder())->setIssuedAt(time()) // Configures the time that the token was issue (iat claim)
+		->setNotBefore($nbf) // Configures the time that the token can be used (nbf claim)
+		->setExpiration($expire) // Configures the expiration time of the token (nbf claim)
+		->set('uid', $uid) // Configures a new claim, called "uid"
+		->sign($signer, '&sLeYou_getuserpaydata.&') // creates a signature using "testing" 
+		->getToken(); // Retrieves the generated token
+		$result = array(
+			'authKey' => (string)$authKey,
+			'expire' =>	$expire,
+		);
+		return $result;
+	}
 
 	/**
 	 * 修改密码
@@ -261,7 +315,7 @@ class User extends Common
 	 */
     public function setInfo($auth_key, $old_pwd, $new_pwd)
     {
-        $cache = cache('Auth_'.$auth_key);
+        $uid = $this->getUid($auth_key);
         if (!$cache) {
 			$this->error = '请先进行登录';
 			return false;
@@ -279,8 +333,7 @@ class User extends Common
 			return false; 
         }
 
-        $userInfo = $cache['userInfo'];
-        $password = $this->where('id', $userInfo['id'])->value('password');
+        $password = $this->where('id', $uid)->value('password');
         if (user_md5($old_pwd) != $password) {
             $this->error = '原密码错误';
 			return false; 
@@ -289,15 +342,8 @@ class User extends Common
             $this->error = '密码没改变';
 			return false;
         }
-        if ($this->where('id', $userInfo['id'])->setField('password', user_md5($new_pwd))) {
-            $userInfo = $this->where('id', $userInfo['id'])->find();
-            // 重新设置缓存
-            session_start();
-            $cache['userInfo'] = $userInfo;
-            $cache['authKey'] = user_md5($userInfo['username'].$userInfo['password'].session_id());
-            cache('Auth_'.$auth_key, null);
-            cache('Auth_'.$cache['authKey'], $cache, config('LOGIN_SESSION_VALID'));
-            return $cache['authKey'];//把auth_key传回给前端
+        if ($this->where('id', $uid)->setField('password', user_md5($new_pwd))) {
+            return $auth_key;//把auth_key传回给前端
         }
         
         $this->error = '修改失败';

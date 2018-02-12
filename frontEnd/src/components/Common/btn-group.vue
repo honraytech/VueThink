@@ -8,7 +8,9 @@
 
 <script>
   import http from '../../assets/js/http'
-
+  import _ from 'lodash'
+  import _g from '@/assets/js/global'
+  
   export default {
     props: ['selectedData', 'type'],
     data() {

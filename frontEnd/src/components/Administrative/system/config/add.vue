@@ -32,7 +32,7 @@
 					<el-radio label="0">关闭</el-radio>
 				</el-radio-group>
 			</el-form-item>
-			<el-form-item label="登录会话有效期" prop="LOGIN_SESSION_VALID">
+			<el-form-item label="登录会话有效期(建议不少于：600)" prop="LOGIN_SESSION_VALID">
 				<el-input v-model.number="form.LOGIN_SESSION_VALID" class="h-40 w-200"></el-input>
 			</el-form-item>
 			<el-form-item>
@@ -45,6 +45,8 @@
 <script>
   import http from '../../../../assets/js/http'
   import preview from './preview.vue'
+  import _g from '@/assets/js/global'
+  import config from '@/assets/js/config.js'
 
   export default {
     data() {
@@ -91,7 +93,7 @@
         this.form.SYSTEM_LOGO = res.data
         let data = {
           name: '图片',
-          url: window.HOST + res.data
+          url: config.HOST + res.data
         }
         if (this.fileList.length) {
           this.fileList[0] = data
@@ -113,7 +115,7 @@
       }
     },
     created() {
-      this.uploadUrl = window.HOST + '/Upload'
+      this.uploadUrl = config.HOST + '/Upload'
       this.apiPost('admin/base/getConfigs').then((res) => {
         this.handelResponse(res, (data) => {
           this.form.SYSTEM_NAME = data.SYSTEM_NAME
@@ -121,7 +123,7 @@
           this.form.LOGIN_SESSION_VALID = parseInt(data.LOGIN_SESSION_VALID)
           this.form.LOGO_TYPE = data.LOGO_TYPE
           if (data.SYSTEM_LOGO) {
-            let img = window.HOST + data.SYSTEM_LOGO
+            let img = config.HOST + data.SYSTEM_LOGO
             this.fileList.push({ name: '图片', url: img })
             this.form.SYSTEM_LOGO = data.SYSTEM_LOGO
           }

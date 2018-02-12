@@ -44,7 +44,7 @@
 </style>
 <script>
   import http from '../../../../assets/js/http'
-
+  import _ from 'lodash'
   export default {
     data() {
       return {
@@ -79,7 +79,7 @@
       }
     },
     created() {
-      let data = store.state.rules
+      let data = this.$store.state.rules
       if (data && data.length) {
         this.tableDataShow = _(data).forEach((res) => {
           res.showInput = false

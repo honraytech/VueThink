@@ -1,3 +1,4 @@
+import router from '@/router/index.js'
 const formMixin = {
   methods: {
     goback() {

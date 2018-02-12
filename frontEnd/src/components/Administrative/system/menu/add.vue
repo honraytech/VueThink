@@ -45,6 +45,8 @@
   import ruleList from './rule.vue'
   import http from '../../../../assets/js/http'
   import fomrMixin from '../../../../assets/js/form_com'
+  import _ from 'lodash'
+  import _g from '@/assets/js/global'
 
   export default {
     data() {

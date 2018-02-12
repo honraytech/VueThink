@@ -1,5 +1,14 @@
+// 依赖
 import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
+import store from '@/vuex/store.js'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+import baseHttp from '@/assets/js/base_http.js'
+import Lockr from 'lockr'
+import config from '@/assets/js/config.js'
+import _g from '@/assets/js/global.js'
+// 组件
 import Login from '@/components/Account/Login.vue'
 import refresh from '@/components/refresh.vue'
 import Home from '@/components/Home.vue'
@@ -23,7 +32,7 @@ import usersList from '@/components/Administrative/personnel/users/list.vue'
 import usersAdd from '@/components/Administrative/personnel/users/add.vue'
 import usersEdit from '@/components/Administrative/personnel/users/edit.vue'
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
 /**
  * meta参数解析
@@ -104,5 +113,68 @@ const routes = [
     ]
   }
 ]
-export default routes
+
+const router = new VueRouter({
+  mode: 'history',
+  base: __dirname,
+  routes
+})
+router.beforeEach(async(to, from, next) => {
+  const hideLeft = to.meta.hideLeft
+  store.dispatch('showLeftMenu', hideLeft)
+  store.dispatch('showLoading', true)
+  // 如果跳转去登录页
+  if (to.name === 'Login') {
+    NProgress.start()
+    next()
+  } else {
+    const expire = Lockr.get('expire')
+    const advanceTime = config.advanceTime
+    const nowTime = Math.floor(new Date().getTime() / 1000)
+    NProgress.start()
+    const infos = baseHttp.apiPost('admin/infos/index')
+    const quees = [infos]
+    if (nowTime >= (expire - advanceTime)) {
+      const refresh = baseHttp.apiPost('admin/infos/refresh') // 获取新token
+      quees.push(refresh)
+    }
+    const result = await Promise.all(quees)
+    // 如果请求多于1个（获取用户信息）
+    if (result.length >= 1) {
+      if (result[0].code === 200) {
+        const data = result[0].data
+        store.dispatch('setMenus', data.menusList)      // 菜单信息
+        store.dispatch('setRules', data.authList)       // 权限信息
+        store.dispatch('setUsers', data.userInfo)       // 用户信息
+      } else {
+        _g.toastMsg('warning', '请重新登录')
+        setTimeout(() => {
+          router.replace('/')
+        }, 1500)
+        return
+      }
+    };
+    // 如果请求多于2个(获取用户信息，刷新token)
+    if (result.length >= 2) {
+      if (result[0].code === 200) {
+        const data = result[1].data
+        Lockr.set('authKey', data.authKey)              // 权限认证
+        Lockr.set('expire', data.expire)              // 权限认证
+      } else {
+        _g.toastMsg('warning', '请重新登录')
+        setTimeout(() => {
+          router.replace('/')
+        }, 1500)
+        return
+      }
+    }
+    next()
+  }
+})
+
+router.afterEach(transition => {
+  NProgress.done()
+})
+
+export default router
 
