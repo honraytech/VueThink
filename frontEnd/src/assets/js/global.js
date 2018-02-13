@@ -54,8 +54,9 @@ const commonFn = {
     if (userInfo.id == 1) {
       return true
     } else {
-      let authList = moduleRule + store.state.rules
-      return _.includes(authList, val)
+      let authList = store.state.rules
+      const ruleName = moduleRule + '-' + val
+      return _.includes(authList, ruleName)
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="m-b-20">
+		<div class="m-b-20" v-show="addShow">
 			<router-link class="btn-link-large add-btn" to="add">
 				<i class="el-icon-plus"></i>&nbsp;&nbsp;添加用户组
 			</router-link>
@@ -36,7 +36,7 @@
 			width="200">
         <template scope="scope">
   				<div>
-  					<span>
+  					<span v-show="editShow">
   						<router-link :to="{ name: 'groupsEdit', params: { id: scope.row.id }}">
   						  <el-button
                 size="small"
@@ -45,7 +45,7 @@
                 </el-button>
   						</router-link>
   					</span>
-  					<span>
+  					<span v-show="deleteShow">
   						<el-button
   						size="small"
   						type="danger"

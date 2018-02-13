@@ -3,16 +3,16 @@
     <el-form :model="form" :rules="rules2" ref="form" label-position="left" label-width="0px" class="demo-ruleForm card-box loginform">
       <h3 class="title">{{systemName}}</h3>
       <el-form-item prop="username">
-        <el-input type="text" v-model="form.username" auto-complete="off" placeholder="账号"></el-input>
+        <el-input type="text" v-model="form.username" placeholder="账号"></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input type="password" v-model="form.password" auto-complete="off" placeholder="密码"></el-input>
+        <el-input type="password" v-model="form.password" placeholder="密码"></el-input>
       </el-form-item>
       <el-form-item v-show="requireVerify" prop="verifyCode">
         <el-input type="text" v-model="form.verifyCode" auto-complete="off" placeholder="验证码" class="w-150"></el-input>
         <img :src="verifyUrl" @click="refreshVerify()" class="verify-pos"/>
       </el-form-item>
-      <el-checkbox v-model="checked" style="margin:0px 0px 35px 0px;">记住密码</el-checkbox>
+      <!-- <el-checkbox v-model="checked" style="margin:0px 0px 35px 0px;">记住密码</el-checkbox> -->
       <el-form-item style="width:100%;">
         <el-button type="primary" style="width:100%;" v-loading="loading" @click.native.prevent="handleSubmit2('form')">登录</el-button>
       </el-form-item>

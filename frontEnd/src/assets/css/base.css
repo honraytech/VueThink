@@ -104,3 +104,8 @@
   font-size: 20px;
   border-bottom: 1px solid #ccc;
 }
+.grid-content{
+	float: left;
+	padding-bottom: 60px;
+	width: 100%;
+}

@@ -30,11 +30,11 @@
 			</aside>
 			<section class="panel-c-c" :class="{'hide-leftMenu': hasChildMenu}">
 				<div class="grid-content bg-purple-light">
-					<el-col :span="24">
-						<transition name="fade" mode="out-in" appear>
-							<router-view v-loading="showLoading"></router-view>
-						</transition>
-					</el-col>
+            <el-col :span="24">
+              <transition name="fade" mode="out-in" appear>
+                <router-view v-loading="showLoading"></router-view>
+              </transition>
+            </el-col>
 				</div>
 			</section>
 		</el-col>

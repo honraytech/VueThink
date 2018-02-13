@@ -48,7 +48,7 @@
 			width="200">
         <template scope="scope">
           <div>
-            <span>
+            <span v-show="editShow">
               <router-link :to="{ name: 'usersEdit', params: { id: scope.row.id }}">
                 <el-button
                 size="small"
@@ -57,7 +57,7 @@
                 </el-button>
               </router-link>
             </span>
-            <span>
+            <span v-show="deleteShow">
               <el-button size="small" type="danger" @click="confirmDelete(scope.row)">删除</el-button>
             </span>
           </div>
