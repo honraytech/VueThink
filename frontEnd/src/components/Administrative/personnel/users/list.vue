@@ -1,12 +1,12 @@
 <template>
 	<div>
 		<div class="m-b-20 ovf-hd">
-			<div class="fl" v-show="addShow">
+			<div class="fl" v-if="addShow">
 				<router-link class="btn-link-large add-btn" to="add">
 					<i class="el-icon-plus"></i>&nbsp;&nbsp;添加用户
 				</router-link>
 			</div>
-			<div class="fl w-200 m-l-30">
+			<div class="fl w-200" :class="{'m-l-30':addShow}">
 				<el-input placeholder="请输入用户名" v-model="keywords">
 					<el-button slot="append" icon="el-icon-search" @click="search()"></el-button>
 				</el-input>
@@ -48,7 +48,7 @@
 			width="200">
         <template scope="scope">
           <div>
-            <span v-show="editShow">
+            <span v-if="editShow">
               <router-link :to="{ name: 'usersEdit', params: { id: scope.row.id }}">
                 <el-button
                 size="small"
@@ -57,7 +57,7 @@
                 </el-button>
               </router-link>
             </span>
-            <span v-show="deleteShow">
+            <span v-if="deleteShow">
               <el-button size="small" type="danger" @click="confirmDelete(scope.row)">删除</el-button>
             </span>
           </div>

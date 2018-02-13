@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<el-button :loading="enableLoading" size="small" @click="changeAttrInBtnGroup(1)" v-show="enableShow">启用</el-button>
-		<el-button :loading="disableLoading" size="small" @click="changeAttrInBtnGroup(0)" v-show="enableShow">禁用</el-button>
-		<el-button :loading="deleteLoading" size="small" @click="deleteDatasInBtnGroup()" v-show="deletesShow">删除</el-button>
+		<el-button :loading="enableLoading" size="small" @click="changeAttrInBtnGroup(1)" v-if="enableShow">启用</el-button>
+		<el-button :loading="disableLoading" size="small" @click="changeAttrInBtnGroup(0)" v-if="enableShow">禁用</el-button>
+		<el-button :loading="deleteLoading" size="small" @click="deleteDatasInBtnGroup()" v-if="deletesShow">删除</el-button>
 	</div>
 </template>
 

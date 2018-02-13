@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="m-b-20" v-show="addShow">
+		<div class="m-b-20" v-if="addShow">
   		<router-link class="btn-link-large add-btn" to="add">
   		  <i class="el-icon-plus"></i>&nbsp;&nbsp;添加菜单
   		</router-link>
@@ -33,11 +33,11 @@
 			<el-table-column
 			label="操作"
 			width="200">
-				<template slot-scope="scope" v-show="editShow">
+				<template slot-scope="scope" v-if="editShow">
 					<router-link :to="{ name: 'menuEdit', params: { id: scope.row.id }}">
 						<el-button size="small" type="primary">编辑</el-button>
 					</router-link>
-						<el-button size="small" type="danger" @click="confirmDelete(scope.row)" v-show="deleteShow">删除</el-button>
+						<el-button size="small" type="danger" @click="confirmDelete(scope.row)" v-if="deleteShow">删除</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
