@@ -282,7 +282,7 @@ class User extends Common
         $token = (new Parser())->parse((string)$jwt);
         $valid = new ValidationData();
         $signer = new Sha256();
-        if($token->validate($valid) && $token->verify($signer, '&sLeYou_getuserpaydata.&')){
+        if($token->validate($valid) && $token->verify($signer, '5802b372c71d009efaf37c866730c09d')){
 			return $token->getClaim('uid');
 		}else{
 			return false;
@@ -300,7 +300,7 @@ class User extends Common
 		->setNotBefore($nbf) // Configures the time that the token can be used (nbf claim)
 		->setExpiration($expire) // Configures the expiration time of the token (nbf claim)
 		->set('uid', $uid) // Configures a new claim, called "uid"
-		->sign($signer, '&sLeYou_getuserpaydata.&') // creates a signature using "testing" 
+		->sign($signer, '5802b372c71d009efaf37c866730c09d') // creates a signature using "testing" 
 		->getToken(); // Retrieves the generated token
 		$result = array(
 			'authKey' => (string)$authKey,
