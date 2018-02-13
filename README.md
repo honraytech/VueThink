@@ -12,8 +12,8 @@ VueThink
 * 4：用jwt登录验证代替原有的登录验证机制
 * 5：改进一部分样式问题
 * 6：将webpack1升级至webpack3,提高了编译后的性能（webpack1没有treeShaking）
-* 7: 将elementUI版本升级到elementUI2.x
-* 8: 升级了项目前端使用vue-cli的版本
+* 7：将elementUI版本升级到elementUI2.x
+* 8：升级了项目前端使用vue-cli的版本
 ## 使用许可：
 VueThink是基于MIT协议的开源框架，它完全免费。你可以免费下载VueThink，用来搭建自己的或者团体的软件。
 
