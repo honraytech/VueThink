@@ -1,13 +1,19 @@
 VueThink
 ===============
+## 注意事项
+
+该项目fork自：https://github.com/honraytech/VueThink
 
 ## 项目介绍
-VueThink是一套基于Vue全家桶（Vue2.x + Vue-router2.x + Vuex）+ Thinkphp的前后端分离框架。
-脚手架构建也可以通过vue官方的vue-cli脚手架工具构建
-实现了一般后台所需要的功能模块
-
-VueThink不仅适用于管理后台或管理系统开发，且广泛适用于B/S架构的项目开发。VueThink是对前后端分离技术的应用实践，2016年由洪睿科技的技术团队研发并投入商业开发使用，已有许多的商业项目实践。而今框架开源，希望能有更多志同道合的伙伴参与VueThink的迭代 ^_^
-
+这个项目主要是改进了当时VueThink中存在的一些问题
+* 1：修复添加菜单无法刷新，必须重新登录才能出现
+* 2：修复菜单没有滚动条，当菜单过多的时候无法显示
+* 3：修复对用户组编辑权限，按钮还显示
+* 4：用jwt登录验证代替原有的登录验证机制
+* 5：改进一部分样式问题
+* 6：将webpack1升级至webpack3,提高了编译后的性能（webpack1没有treeShaking）
+* 7: 将elementUI版本升级到elementUI2.x
+* 8: 升级了项目前端使用vue-cli的版本
 ## 使用许可：
 VueThink是基于MIT协议的开源框架，它完全免费。你可以免费下载VueThink，用来搭建自己的或者团体的软件。
 
@@ -25,7 +31,6 @@ VueThink是基于MIT协议的开源框架，它完全免费。你可以免费下
 
 详细开发文档参考 [ThinkPHP5完全开发手册](http://www.kancloud.cn/manual/thinkphp5)
 
-
 * 登录、退出登录
 * 修改密码、记住密码
 * 菜单管理
@@ -35,16 +40,6 @@ VueThink是基于MIT协议的开源框架，它完全免费。你可以免费下
 * 部门管理
 * 用户组管理
 * 用户管理
-
-### Demo
-演示地址：<http://demo.vuethink.com>
-
-用户名：user01
-
-密码：user01
-
-### QQ群交流
-欢迎加入qq群：340506819
 
 ### 开发依赖
 * vue <https://cn.vuejs.org/v2/guide/>
@@ -101,6 +96,7 @@ location / {
 
 ### 前端搭建
 ```
-请参考frontEnd里的README文件
+cd frontEnd
+npm run dev
 ```
 
