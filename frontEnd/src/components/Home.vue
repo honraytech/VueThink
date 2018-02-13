@@ -72,7 +72,6 @@
 	.panel-center {
 		background: #324057;
 		position: absolute;
-    height: 100%;
 		top: 60px;
 		bottom: 0px;
 		overflow: hidden;
