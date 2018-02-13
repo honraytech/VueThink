@@ -23,8 +23,7 @@
         "topthink/think-testing": "^1.0",
         "topthink/think-sae": "^1.0",
         "topthink/think-queue": "^1.0",
-        "topthink/think-migration": "^1.0",
-        "lcobucci/jwt": "^3.2"
+        "topthink/think-migration": "^1.0"
     },
     "extra": {
         "think-path": "thinkphp"
