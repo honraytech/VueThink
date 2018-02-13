@@ -134,10 +134,10 @@ router.beforeEach(async(to, from, next) => {
     NProgress.start()
     const infos = baseHttp.apiPost('admin/infos/index')
     const quees = [infos]
-    if (nowTime >= (expire - advanceTime)) {
-      const refresh = baseHttp.apiPost('admin/infos/refresh') // 获取新token
-      quees.push(refresh)
-    }
+    // if (nowTime >= (expire - advanceTime)) {
+    const refresh = baseHttp.apiPost('admin/infos/refresh') // 获取新token
+    quees.push(refresh)
+    // }
     const result = await Promise.all(quees)
     // 如果请求多于1个（获取用户信息）
     if (result.length >= 1) {
