@@ -316,7 +316,7 @@ class User extends Common
     public function setInfo($auth_key, $old_pwd, $new_pwd)
     {
         $uid = $this->getUid($auth_key);
-        if (!$cache) {
+        if (!$uid) {
 			$this->error = '请先进行登录';
 			return false;
         }
