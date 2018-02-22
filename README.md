@@ -41,6 +41,11 @@ VueThink是基于MIT协议的开源框架，它完全免费。你可以免费下
 * 用户组管理
 * 用户管理
 
+### 演示地址
+http://vuethink.xiaolu289.com
+用户名：user01
+密码：user01
+
 ### 开发依赖
 * vue <https://cn.vuejs.org/v2/guide/>
 * element-ui@2.1.0 <http://element.eleme.io/#/zh-CN/component/installation>
