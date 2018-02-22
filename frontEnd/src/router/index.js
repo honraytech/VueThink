@@ -122,16 +122,11 @@ const router = new VueRouter({
 router.beforeEach(async(to, from, next) => {
   const hideLeft = to.meta.hideLeft
   store.dispatch('showLeftMenu', hideLeft)
-  store.dispatch('showLoading', true)
   // 如果跳转去登录页
-  if (to.name === 'Login') {
-    NProgress.start()
-    next()
-  } else {
+  if (to.name !== 'Login') {
     const expire = Lockr.get('expire')
     const advanceTime = config.advanceTime
     const nowTime = Math.floor(new Date().getTime() / 1000)
-    NProgress.start()
     const infos = baseHttp.apiPost('admin/infos/index')
     const quees = [infos]
     // if (nowTime >= (expire - advanceTime)) {
@@ -168,8 +163,9 @@ router.beforeEach(async(to, from, next) => {
         return
       }
     }
-    next()
   }
+  NProgress.start()
+  next()
 })
 
 router.afterEach(transition => {
