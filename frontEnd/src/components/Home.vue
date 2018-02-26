@@ -87,7 +87,7 @@
     bottom: 0px;
     left: 220px;
     overflow-y: scroll;
-    padding: 20px;
+    padding: 20px 20px 0;
   }
   
   .logout {
