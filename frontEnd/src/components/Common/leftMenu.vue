@@ -1,9 +1,9 @@
 <template>
   <div>
-    <el-menu mode="vertical" class="el-menu-vertical-demo" 
+    <el-menu ref="menu" mode="vertical" class="el-menu-vertical-demo" 
       router 
       background-color="#324057"
-      :default-active="$route.path"
+      :default-active="defaultActive"
       text-color="#fff"
       active-text-color="#e4ba55"
       @open="handleOpen">
@@ -26,11 +26,24 @@ import _g from '@/assets/js/global'
 export default {
   props: ['menuData', 'menu'],
   data() {
+    const path = this.defaultOpends()
     return {
-      actived: '54'
+      actived: '54',
+      defaultActive: path
     }
   },
   methods: {
+    defaultOpends() {
+      if (this.$route.path !== '/home/config/add') {
+        const pathsArr = this.$route.path.split('/')
+        const pathModule = ['', pathsArr[1], pathsArr[2]].join('/')
+        const operation = pathsArr[3]
+        if (operation !== 'list') {
+          return pathModule + '/list'
+        }
+      }
+      return this.$route.path
+    },
     handleOpen(index, indexPath) {
 
     },
