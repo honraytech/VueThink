@@ -11,9 +11,9 @@ use think\Db;
 use app\admin\model\Common;
 use com\verify\HonrayVerify;
 
-class User extends Common 
-{	
-    
+class User extends Common
+{
+
     /**
      * 为了数据库的整洁，同时又不影响Model和Controller的名称
      * 我们约定每个模块的数据表都加上相同的前缀，比如微信模块用weixin作为数据表前缀
@@ -24,7 +24,7 @@ class User extends Common
 	protected $autoWriteTimestamp = true;
 	protected $insert = [
 		'status' => 1,
-	];  
+	];
 	/**
 	 * 获取用户所属所有用户组
 	 * @param  array   $param  [description]
@@ -53,25 +53,25 @@ class User extends Common
 		// 默认除去超级管理员
 		$map['user.id'] = array('neq', 1);
 		$dataCount = $this->alias('user')->where($map)->count('id');
-		
+
 		$list = $this
 				->where($map)
 				->alias('user')
 				->join('__ADMIN_STRUCTURE__ structure', 'structure.id=user.structure_id', 'LEFT')
 				->join('__ADMIN_POST__ post', 'post.id=user.post_id', 'LEFT');
-		
+
 		// 若有分页
 		if ($page && $limit) {
 			$list = $list->page($page, $limit);
 		}
 
-		$list = $list 
+		$list = $list
 				->field('user.*,structure.name as s_name, post.name as p_name')
 				->select();
-		
+
 		$data['list'] = $list;
 		$data['dataCount'] = $dataCount;
-		
+
 		return $data;
 	}
 
@@ -80,7 +80,7 @@ class User extends Common
 	 * @linchuangbin
 	 * @DateTime  2017-02-10T21:16:34+0800
 	 * @param     string                   $id [主键]
-	 * @return    [array]                       
+	 * @return    [array]
 	 */
 	public function getDataById($id = '')
 	{
@@ -216,7 +216,7 @@ class User extends Common
 			return false;
     	}
     	if (user_md5($password) !== $userInfo['password']) {
-			$this->error = '密码错误';
+			$this->error = '密码错误'.user_md5($password);
 			return false;
     	}
     	if ($userInfo['status'] === 0) {
@@ -234,10 +234,10 @@ class User extends Common
         if ($isRemember || $type) {
         	$secret['username'] = $username;
         	$secret['password'] = $password;
-        	$data['rememberKey'] = encrypt($secret);
+            $data['rememberKey'] = encrypt($secret);
         }
 
-        // 保存缓存        
+        // 保存缓存
         session_start();
         $info['userInfo'] = $userInfo;
         $info['sessionId'] = session_id();
@@ -272,18 +272,18 @@ class User extends Common
         }
         if (!$new_pwd) {
             $this->error = '请输入新密码';
-			return false; 
+			return false;
         }
         if ($new_pwd == $old_pwd) {
             $this->error = '新旧密码不能一致';
-			return false; 
+			return false;
         }
 
         $userInfo = $cache['userInfo'];
         $password = $this->where('id', $userInfo['id'])->value('password');
         if (user_md5($old_pwd) != $password) {
             $this->error = '原密码错误';
-			return false; 
+			return false;
         }
         if (user_md5($new_pwd) == $password) {
             $this->error = '密码没改变';
@@ -299,7 +299,7 @@ class User extends Common
             cache('Auth_'.$cache['authKey'], $cache, config('LOGIN_SESSION_VALID'));
             return $cache['authKey'];//把auth_key传回给前端
         }
-        
+
         $this->error = '修改失败';
 		return false;
     }
@@ -311,7 +311,7 @@ class User extends Common
     protected function getMenuAndRule($u_id)
     {
     	if ($u_id === 1) {
-            $map['status'] = 1;            
+            $map['status'] = 1;
     		$menusList = Db::name('admin_menu')->where($map)->order('sort asc')->select();
     	} else {
     		$groups = $this->get($u_id)->groups;
