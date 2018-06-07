@@ -12,7 +12,7 @@ VueThink不仅适用于管理后台或管理系统开发，且广泛适用于B/S
 VueThink是基于MIT协议的开源框架，它完全免费。你可以免费下载VueThink，用来搭建自己的或者团体的软件。
 
 ##主要适用技术栈
-* 后端框架：ThinkPHP 5.x
+* 后端框架：ThinkPHP 5.0.x
 * 前端MVVM框架：Vue.JS 2.x
 * 开发工作流：Webpack 1.x
 * 路由：Vue-Router 2.x
@@ -69,7 +69,7 @@ VueThink是基于MIT协议的开源框架，它完全免费。你可以免费下
 ### Server搭建
 服务端使用的框架为thinkphp5.搭建前请确保拥有lamp/lnmp/wamp环境。
 
-集成环境推荐使用phpstudy：<http://www.phpstudy.net/> 
+集成环境推荐使用phpstudy：<http://www.phpstudy.net/>
 
 这里所说的搭建其实就是把server框架放入WEB运行环境，并使用80端口。
 
@@ -103,4 +103,3 @@ location / {
 ```
 请参考frontEnd里的README文件
 ```
-
