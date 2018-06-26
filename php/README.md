@@ -19,4 +19,15 @@ JS函数库：Lodash
 
 详细开发文档参考 [ThinkPHP5完全开发手册](http://www.kancloud.cn/manual/thinkphp5)
 
+### 后端部署
 
+1.服务端使用的框架为thinkphp5.搭建前请确保拥有lamp/lnmp/wamp环境。
+  集成环境推荐使用phpset：<http://www.phpset.cn/>
+2.配置重写：请参考<https://www.kancloud.cn/manual/thinkphp5/177576>
+3.导入数据库并配置
+  导入服务端根文件夹数据库文件install.sql，(数据库内用户表账号admin，密码123456)并修改config/database.php配置文件。
+
+* PHP >= 5.6.0
+* PDO PHP Extension
+* MBstring PHP Extension
+* CURL PHP Extension
