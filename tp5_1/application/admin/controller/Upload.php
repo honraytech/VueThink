@@ -6,7 +6,7 @@
 // +----------------------------------------------------------------------
 namespace app\admin\controller;
 
-use think\Request;
+use think\facade\Request;
 use think\Controller;
 
 class Upload extends Controller

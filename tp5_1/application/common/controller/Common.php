@@ -8,21 +8,15 @@
 namespace app\common\controller;
 
 use think\Controller;
-use think\Request;
+use think\facade\Request;
 
 class Common extends Controller
 {
     public $param;
-    public function _initialize()
+
+    public function initialize()
     {
-        parent::_initialize();
-        /*防止跨域*/      
-        header('Access-Control-Allow-Origin: '.$_SERVER['HTTP_ORIGIN']);
-        header('Access-Control-Allow-Credentials: true');
-        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, authKey, sessionId");
-        $param =  Request::instance()->param();            
-        $this->param = $param;
+        $this->param = $this->request;
     }
 
     public function object_array($array) 

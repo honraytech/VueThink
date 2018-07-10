@@ -50,6 +50,7 @@ class HonrayVerify
      */
     public function __construct($config = [])
     {
+        if(empty($config)){$config=[];}
         $this->config = array_merge($this->config, $config);
     }
 
