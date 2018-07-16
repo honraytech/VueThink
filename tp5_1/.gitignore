@@ -1,5 +1,7 @@
-/.idea
-/.vscode
+.idea
+composer.lock
 *.log
-thinkphp
 .env
+thinkphp
+nginx.htaccess
+phpMyAdmin

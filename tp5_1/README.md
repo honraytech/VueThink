@@ -3,11 +3,15 @@ VueThink ThinkPHP5.1版
 
 ## 安装说明
 
-> 请参照[ThinkPHP5.1](https://www.kancloud.cn/manual/thinkphp5_1/353948)的方法部署
-> 切换到public目录后，启动命令：php -S localhost:8888  router.php
-> 上面的目录结构和名称是可以改变的，这取决于你的入口文件和配置参数。
-> 数据库默认使用vuethink，账号：root，密码root
+> 切换到tp5_1目录，使用composer update或git安装thinkphp核心框架包
 
+> 数据库默认使用vuethink，账号：root，密码：root
+
+> 测试环境：切换到public目录后，启动命令：php -S localhost:80  router.php
+
+> 部署环境：配置重写，部署到public目录
+
+> 详情请参照[ThinkPHP5.1](https://www.kancloud.cn/manual/thinkphp5_1/353948)的方法部署
 
 ## 参与开发
 
