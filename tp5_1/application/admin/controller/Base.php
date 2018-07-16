@@ -9,13 +9,15 @@ namespace app\admin\controller;
 
 use com\verify\HonrayVerify;
 use app\common\controller\Common;
-use think\Request;
+use think\facade\Request;
 
 class Base extends Common
 {
+
     public function login()
     {   
         $userModel = model('User');
+
         $param = $this->param;
         $username = $param['username'];
         $password = $param['password'];
@@ -52,7 +54,7 @@ class Base extends Common
 
     public function getConfigs()
     {
-        $systemConfig = cache('DB_CONFIG_DATA'); 
+        $systemConfig = cache('DB_CONFIG_DATA');
         if (!$systemConfig) {
             //获取所有系统配置
             $systemConfig = model('admin/SystemConfig')->getDataList();

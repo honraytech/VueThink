@@ -7,7 +7,7 @@
 
 namespace app\admin\controller;
 
-use think\Request;
+use think\facade\Request;
 use think\Db;
 use app\common\adapter\AuthAdapter;
 use app\common\controller\Common;
@@ -17,13 +17,13 @@ class ApiCommon extends Common
 {
     public function initialize()
     {
-        parent::_initialize();
+        parent::initialize();
         /*获取头部信息*/
         $header = Request::instance()->header();
-
         $authKey = $header['authkey'];
         $sessionId = $header['sessionid'];
         $cache = cache('Auth_'.$authKey);
+
 
         // 校验sessionid和authKey
         if (empty($sessionId)||empty($authKey)||empty($cache)) {
