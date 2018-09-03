@@ -75,7 +75,7 @@
         this.$refs.form.validate((pass) => {
           if (pass) {
             this.isLoading = !this.isLoading
-            this.apiPost('admin/systemConfigs', this.form).then((res) => {
+            this.apiPost('admin/systemConfigs/save', this.form).then((res) => {
               this.handelResponse(res, (data) => {
                 _g.toastMsg('success', '提交成功')
                 this.isLoading = !this.isLoading
@@ -117,7 +117,7 @@
         this.handelResponse(res, (data) => {
           this.form.SYSTEM_NAME = data.SYSTEM_NAME
           this.form.IDENTIFYING_CODE = data.IDENTIFYING_CODE
-          this.form.LOGIN_SESSION_VALID = data.LOGIN_SESSION_VALID
+          this.form.LOGIN_SESSION_VALID = parseInt(data.LOGIN_SESSION_VALID)
           this.form.LOGO_TYPE = data.LOGO_TYPE
           if (data.SYSTEM_LOGO) {
             let img = window.HOST + data.SYSTEM_LOGO

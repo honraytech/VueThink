@@ -33,7 +33,7 @@ class Post extends Common
 	public function getDataList($keywords)
 	{
 		$map = [];
-		if ($param['keywords']) {
+		if ($keywords) {
 			$map['name'] = ['like', '%'.$keywords.'%'];
 		}
 		$data = $this->where($map)->select();

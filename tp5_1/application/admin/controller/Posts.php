@@ -9,24 +9,24 @@ namespace app\admin\controller;
 
 class Posts extends ApiCommon
 {
-    
+
     public function index()
-    {   
+    {
         $postModel = model('Post');
         $param = $this->param;
-        $keywords = empty($param['keywords'])? $param['keywords']: '';
+        $keywords = empty($param->keywords) ? $param->keywords : '';
         $data = $postModel->getDataList($keywords);
         return resultArray(['data' => $data]);
     }
 
     public function read()
-    {   
+    {
         $postModel = model('Post');
         $param = $this->param;
-        $data = $postModel->getDataById($param['id']);
+        $data = $postModel->getDataById($param->id);
         if (!$data) {
             return resultArray(['error' => $postModel->getError()]);
-        } 
+        }
         return resultArray(['data' => $data]);
     }
 
@@ -37,7 +37,7 @@ class Posts extends ApiCommon
         $data = $postModel->createData($param);
         if (!$data) {
             return resultArray(['error' => $postModel->getError()]);
-        } 
+        }
         return resultArray(['data' => '添加成功']);
     }
 
@@ -45,10 +45,10 @@ class Posts extends ApiCommon
     {
         $postModel = model('Post');
         $param = $this->param;
-        $data = $postModel->updateDataById($param, $param['id']);
+        $data = $postModel->updateDataById($param, $param->id);
         if (!$data) {
             return resultArray(['error' => $postModel->getError()]);
-        } 
+        }
         return resultArray(['data' => '编辑成功']);
     }
 
@@ -56,34 +56,34 @@ class Posts extends ApiCommon
     {
         $postModel = model('Post');
         $param = $this->param;
-        $data = $postModel->delDataById($param['id']);       
+        $data = $postModel->delDataById($param->id);
         if (!$data) {
             return resultArray(['error' => $postModel->getError()]);
-        } 
-        return resultArray(['data' => '删除成功']);    
+        }
+        return resultArray(['data' => '删除成功']);
     }
 
     public function deletes()
     {
         $postModel = model('Post');
         $param = $this->param;
-        $data = $postModel->delDatas($param['ids']);  
+        $data = $postModel->delDatas($param->ids);
         if (!$data) {
             return resultArray(['error' => $postModel->getError()]);
-        } 
-        return resultArray(['data' => '删除成功']); 
+        }
+        return resultArray(['data' => '删除成功']);
     }
 
     public function enables()
     {
         $postModel = model('Post');
         $param = $this->param;
-        $data = $postModel->enableDatas($param['ids'], $param['status']);  
+        $data = $postModel->enableDatas($param->ids, $param->status);
         if (!$data) {
             return resultArray(['error' => $postModel->getError()]);
-        } 
-        return resultArray(['data' => '操作成功']);         
+        }
+        return resultArray(['data' => '操作成功']);
     }
-    
+
 }
  

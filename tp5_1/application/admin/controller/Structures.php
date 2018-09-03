@@ -22,7 +22,7 @@ class Structures extends ApiCommon
     {   
         $structureModel = model('Structure');
         $param = $this->param;
-        $data = $structureModel->getDataById($param['id']);
+        $data = $structureModel->getDataById($param->id);
         if (!$data) {
             return resultArray(['error' => $structureModel->getError()]);
         } 
@@ -44,7 +44,7 @@ class Structures extends ApiCommon
     {
         $structureModel = model('Structure');
         $param = $this->param;
-        $data = $structureModel->updateDataById($param, $param['id']);
+        $data = $structureModel->updateDataById($param, $param->id);
         if (!$data) {
             return resultArray(['error' => $structureModel->getError()]);
         } 
@@ -55,7 +55,7 @@ class Structures extends ApiCommon
     {
         $structureModel = model('Structure');
         $param = $this->param;
-        $data = $structureModel->delDataById($param['id'], true);       
+        $data = $structureModel->delDataById($param->id, true);       
         if (!$data) {
             return resultArray(['error' => $structureModel->getError()]);
         } 
@@ -66,7 +66,7 @@ class Structures extends ApiCommon
     {
         $structureModel = model('Structure');
         $param = $this->param;
-        $data = $structureModel->delDatas($param['ids'], true);  
+        $data = $structureModel->delDatas($param->ids, true);  
         if (!$data) {
             return resultArray(['error' => $structureModel->getError()]);
         } 
@@ -77,7 +77,7 @@ class Structures extends ApiCommon
     {
         $structureModel = model('Structure');
         $param = $this->param;
-        $data = $structureModel->enableDatas($param['ids'], $param['status'], true);  
+        $data = $structureModel->enableDatas($param->ids, $param->status, true);  
         if (!$data) {
             return resultArray(['error' => $structureModel->getError()]);
         } 

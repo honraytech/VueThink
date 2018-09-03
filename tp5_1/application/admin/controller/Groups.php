@@ -22,7 +22,7 @@ class Groups extends ApiCommon
     {   
         $groupModel = model('Group');
         $param = $this->param;
-        $data = $groupModel->getDataById($param['id']);
+        $data = $groupModel->getDataById($param->id);
         if (!$data) {
             return resultArray(['error' => $groupModel->getError()]);
         } 
@@ -44,7 +44,7 @@ class Groups extends ApiCommon
     {
         $groupModel = model('Group');
         $param = $this->param;
-        $data = $groupModel->updateDataById($param, $param['id']);
+        $data = $groupModel->updateDataById($param, $param->id);
         if (!$data) {
             return resultArray(['error' => $groupModel->getError()]);
         } 
@@ -55,7 +55,7 @@ class Groups extends ApiCommon
     {
         $groupModel = model('Group');
         $param = $this->param;
-        $data = $groupModel->delDataById($param['id'], true);       
+        $data = $groupModel->delDataById($param->id, true);       
         if (!$data) {
             return resultArray(['error' => $groupModel->getError()]);
         } 
@@ -66,7 +66,7 @@ class Groups extends ApiCommon
     {
         $groupModel = model('Group');
         $param = $this->param;
-        $data = $groupModel->delDatas($param['ids'], true);  
+        $data = $groupModel->delDatas($param->ids, true);  
         if (!$data) {
             return resultArray(['error' => $groupModel->getError()]);
         } 
@@ -77,7 +77,7 @@ class Groups extends ApiCommon
     {
         $groupModel = model('Group');
         $param = $this->param;
-        $data = $groupModel->enableDatas($param['ids'], $param['status'], true);  
+        $data = $groupModel->enableDatas($param->ids, $param->status, true);  
         if (!$data) {
             return resultArray(['error' => $groupModel->getError()]);
         } 

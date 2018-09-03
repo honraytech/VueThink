@@ -14,9 +14,9 @@ class Users extends ApiCommon
     {   
         $userModel = model('User');
         $param = $this->param;
-        $keywords = !empty($param['keywords']) ? $param['keywords']: '';
-        $page = !empty($param['page']) ? $param['page']: '';
-        $limit = !empty($param['limit']) ? $param['limit']: '';    
+        $keywords = !empty($param->keywords) ? $param->keywords: '';
+        $page = !empty($param->page) ? $param->page: '';
+        $limit = !empty($param->limit) ? $param->limit: '';    
         $data = $userModel->getDataList($keywords, $page, $limit);
         return resultArray(['data' => $data]);
     }
@@ -25,7 +25,7 @@ class Users extends ApiCommon
     {   
         $userModel = model('User');
         $param = $this->param;
-        $data = $userModel->getDataById($param['id']);
+        $data = $userModel->getDataById($param->id);
         if (!$data) {
             return resultArray(['error' => $userModel->getError()]);
         } 
@@ -47,7 +47,7 @@ class Users extends ApiCommon
     {
         $userModel = model('User');
         $param = $this->param;
-        $data = $userModel->updateDataById($param, $param['id']);
+        $data = $userModel->updateDataById($param, $param->id);
         if (!$data) {
             return resultArray(['error' => $userModel->getError()]);
         } 
@@ -58,7 +58,7 @@ class Users extends ApiCommon
     {
         $userModel = model('User');
         $param = $this->param;
-        $data = $userModel->delDataById($param['id']);       
+        $data = $userModel->delDataById($param->id);       
         if (!$data) {
             return resultArray(['error' => $userModel->getError()]);
         } 
@@ -69,7 +69,7 @@ class Users extends ApiCommon
     {
         $userModel = model('User');
         $param = $this->param;
-        $data = $userModel->delDatas($param['ids']);  
+        $data = $userModel->delDatas($param->ids);  
         if (!$data) {
             return resultArray(['error' => $userModel->getError()]);
         } 
@@ -80,7 +80,7 @@ class Users extends ApiCommon
     {
         $userModel = model('User');
         $param = $this->param;
-        $data = $userModel->enableDatas($param['ids'], $param['status']);  
+        $data = $userModel->enableDatas($param->ids, $param->status);  
         if (!$data) {
             return resultArray(['error' => $userModel->getError()]);
         } 

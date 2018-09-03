@@ -22,7 +22,7 @@ class Menus extends ApiCommon
     {   
         $menuModel = model('Menu');
         $param = $this->param;
-        $data = $menuModel->getDataById($param['id']);
+        $data = $menuModel->getDataById($param->id);
         if (!$data) {
             return resultArray(['error' => $menuModel->getError()]);
         } 
@@ -44,7 +44,7 @@ class Menus extends ApiCommon
     {
         $menuModel = model('Menu');
         $param = $this->param;
-        $data = $menuModel->updateDataById($param, $param['id']);
+        $data = $menuModel->updateDataById($param, $param->id);
         if (!$data) {
             return resultArray(['error' => $menuModel->getError()]);
         } 
@@ -55,7 +55,7 @@ class Menus extends ApiCommon
     {
         $menuModel = model('Menu');
         $param = $this->param;
-        $data = $menuModel->delDataById($param['id'], true);       
+        $data = $menuModel->delDataById($param->id, true);       
         if (!$data) {
             return resultArray(['error' => $menuModel->getError()]);
         } 
@@ -66,7 +66,7 @@ class Menus extends ApiCommon
     {
         $menuModel = model('Menu');
         $param = $this->param;
-        $data = $menuModel->delDatas($param['ids'], true);  
+        $data = $menuModel->delDatas($param->ids, true);  
         if (!$data) {
             return resultArray(['error' => $menuModel->getError()]);
         } 
@@ -77,7 +77,7 @@ class Menus extends ApiCommon
     {
         $menuModel = model('Menu');
         $param = $this->param;
-        $data = $menuModel->enableDatas($param['ids'], $param['status'], true);  
+        $data = $menuModel->enableDatas($param->ids, $param->status, true);  
         if (!$data) {
             return resultArray(['error' => $menuModel->getError()]);
         } 
