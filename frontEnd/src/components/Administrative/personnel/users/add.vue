@@ -20,7 +20,7 @@
 			</el-form-item>
 			<el-form-item label="用户组">
 				<el-checkbox-group v-model="selectedGroups">
-					<el-checkbox v-for="item in groupOptions" :label="item.title" class="form-checkbox"></el-checkbox>
+					<el-checkbox v-for="item in groupOptions" :label="item.title" class="form-checkbox" v-bind:key="item.id"></el-checkbox>
 				</el-checkbox-group>
 			</el-form-item>
 			<el-form-item>
@@ -92,10 +92,10 @@
           return
         }
         console.log('res = ', _g.j2s(this.form))
-        this.$refs.form.validate((pass) => {
+        this.$refs[form].validate((pass) => {
           if (pass) {
             this.isLoading = !this.isLoading
-            this.apiPost('admin/users', this.form).then((res) => {
+            this.apiPost('admin/users/save', this.form).then((res) => {
               this.handelResponse(res, (data) => {
                 _g.toastMsg('success', '添加成功')
                 _g.clearVuex('setUsers')
@@ -112,6 +112,7 @@
       getAllGroups() {
         this.apiGet('admin/groups').then((res) => {
           this.handelResponse(res, (data) => {
+            console.log('groupOptions = ', _g.j2s(data))
             this.groupOptions = data
           })
         })
@@ -119,6 +120,7 @@
       getAllOrgs() {
         this.apiGet('admin/structures').then((res) => {
           this.handelResponse(res, (data) => {
+            console.log('orgsOptions = ', _g.j2s(data))
             this.orgsOptions = data
           })
         })

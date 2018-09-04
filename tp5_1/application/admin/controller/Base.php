@@ -40,8 +40,8 @@ class Base extends Common
             return resultArray(['error' => '校验信息失败，重登陆失败。']);
         }
         $data = decrypt($param->rememberKey);
-        $username = $data->username;
-        $password = $data->password;
+        $username = $data['username'];
+        $password = $data['password'];
 
         $data = $userModel->login($username, $password, '', true, true);
         if (!$data) {

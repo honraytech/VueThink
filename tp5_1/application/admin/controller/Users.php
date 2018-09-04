@@ -21,11 +21,10 @@ class Users extends ApiCommon
         return resultArray(['data' => $data]);
     }
 
-    public function read()
+    public function read($id)
     {   
         $userModel = model('User');
-        $param = $this->param;
-        $data = $userModel->getDataById($param->id);
+        $data = $userModel->getDataById($id);
         if (!$data) {
             return resultArray(['error' => $userModel->getError()]);
         } 
@@ -35,7 +34,7 @@ class Users extends ApiCommon
     public function save()
     {
         $userModel = model('User');
-        $param = $this->param;
+        $param = $this->param->post();
         $data = $userModel->createData($param);
         if (!$data) {
             return resultArray(['error' => $userModel->getError()]);
@@ -43,11 +42,11 @@ class Users extends ApiCommon
         return resultArray(['data' => '添加成功']);
     }
 
-    public function update()
+    public function update($id)
     {
         $userModel = model('User');
-        $param = $this->param;
-        $data = $userModel->updateDataById($param, $param->id);
+        $param = $this->param->post();
+        $data = $userModel->updateDataById($param, $id);
         if (!$data) {
             return resultArray(['error' => $userModel->getError()]);
         } 

@@ -47,11 +47,11 @@ class User extends Common
 	{
 		$map = [];
 		if ($keywords) {
-			$map['username|realname'] = ['like', '%' . $keywords . '%'];
+			$map[] = ['username|realname', 'like', '%' . $keywords . '%'];
 		}
 
 		// 默认除去超级管理员
-		$map['user.id'] = array('neq', 1);
+		$map[] = array('user.id', 'neq', 1);
 		$dataCount = $this->alias('user')->where($map)->count('id');
 
 		$list = $this
@@ -89,7 +89,7 @@ class User extends Common
 			$this->error = '暂无此数据';
 			return false;
 		}
-		$data['groups'] = $this->get($id)->groups;
+		// $data['groups'] = $this->get($id)->groups;
 		return $data;
 	}
 	/**
@@ -98,7 +98,7 @@ class User extends Common
 	 */
 	public function createData($param)
 	{
-		if (empty($param->groups)) {
+		if (empty($param['groups'])) {
 			$this->error = '请至少勾选一个用户组';
 			return false;
 		}

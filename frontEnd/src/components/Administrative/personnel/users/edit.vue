@@ -12,7 +12,7 @@
 			</el-form-item>
 			<el-form-item label="所属组织架构" prop="structure_id">
 				<el-select v-model="form.structure_id" placeholder="请选择组织架构" class="w-200">
-					<el-option v-for="item in orgsOptions" :label="item.title" :value="item.id"></el-option>
+					<el-option v-for="item in orgsOptions" :label="item.title" :value="item.id" v-bind:key="item.id"></el-option>
 				</el-select>
 			</el-form-item>
 			<el-form-item label="备注">
@@ -20,7 +20,7 @@
 			</el-form-item>
 			<el-form-item label="用户组">
 				<el-checkbox-group v-model="selectedGroups">
-					<el-checkbox v-for="item in groupOptions" :label="item.else" class="form-checkbox"></el-checkbox>
+					<el-checkbox v-for="item in groupOptions" :label="item.else" class="form-checkbox" v-bind:key="item.id"></el-checkbox>
 				</el-checkbox-group>
 			</el-form-item>
 			<el-form-item>
@@ -106,7 +106,7 @@
             if (this.password) {
               this.form.password = this.password
             }
-            this.apiPut('admin/users/', this.id, this.form).then((res) => {
+            this.apiPut('admin/users/update/', this.id, this.form).then((res) => {
               this.handelResponse(res, (data) => {
                 _g.toastMsg('success', '添加成功')
                 _g.clearVuex('setUsers')
@@ -137,6 +137,7 @@
       },
       getAllOrgs() {
         this.apiGet('admin/structures').then((res) => {
+          console.log('structures = ', _g.j2s(res))
           this.handelResponse(res, (data) => {
             this.orgsOptions = data
           })
@@ -146,8 +147,9 @@
         this.getAllOrgs()
         this.groupOptions = await this.getAllGroups()
         this.apiGet('admin/users/' + this.id).then((res) => {
-          console.log('res = ', _g.j2s(res))
+          console.log('CompleteData = ', _g.j2s(res))
           this.handelResponse(res, (data) => {
+            console.log('data = ', _g.j2s(data))
             this.form.username = data.username
             this.form.realname = data.realname
             this.form.structure_id = data.structure_id

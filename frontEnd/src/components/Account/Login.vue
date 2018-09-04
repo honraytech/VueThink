@@ -60,7 +60,7 @@
       },
       handleSubmit2(form) {
         if (this.loading) return
-        this.$refs.form.validate((valid) => {
+        this.$refs[form].validate((valid) => {
           if (valid) {
             this.loading = !this.loading
             let data = {}
