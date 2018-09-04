@@ -85,6 +85,8 @@
                 this.refreshVerify()
                 if (this.checked) {
                   Cookies.set('rememberPwd', true, { expires: 1 })
+                } else {
+                  Cookies.set('rememberPwd', false, { expires: 1 })
                 }
                 this.resetCommonData(res.data)
                 _g.toastMsg('success', '登录成功')
@@ -96,10 +98,11 @@
         })
       },
       checkIsRememberPwd() {
-        if (Cookies.get('rememberPwd')) {
+        if (Cookies.get('rememberPwd') === 'true') {
           let data = {
             rememberKey: Lockr.get('rememberKey')
           }
+          console.log('checkIsRememberPwd')
           this.apiPost('admin/base/relogin', data).then((res) => {
             this.handelResponse(res, (data) => {
               this.resetCommonData(data)

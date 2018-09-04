@@ -35,6 +35,10 @@ class Base extends Common
     {
         $userModel = model('User');
         $param = $this->param;
+
+        if (empty($param->rememberKey)) {
+            return resultArray(['error' => '校验信息失败，重登陆失败。']);
+        }
         $data = decrypt($param->rememberKey);
         $username = $data->username;
         $password = $data->password;
