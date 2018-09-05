@@ -19,11 +19,10 @@ class Rules extends ApiCommon
         return resultArray(['data' => $data]);
     }
 
-    public function read()
+    public function read($id)
     {
         $ruleModel = model('Rule');
-        $param = $this->param;
-        $data = $ruleModel->getDataById($param->id);
+        $data = $ruleModel->getDataById($id);
         if (!$data) {
             return resultArray(['error' => $ruleModel->getError()]);
         }
@@ -33,7 +32,7 @@ class Rules extends ApiCommon
     public function save()
     {
         $ruleModel = model('Rule');
-        $param = $this->param;
+        $param = $this->param->post();
         $data = $ruleModel->createData($param);
         if (!$data) {
             return resultArray(['error' => $ruleModel->getError()]);
@@ -41,22 +40,21 @@ class Rules extends ApiCommon
         return resultArray(['data' => '添加成功']);
     }
 
-    public function update()
+    public function update($id)
     {
         $ruleModel = model('Rule');
-        $param = $this->param;
-        $data = $ruleModel->updateDataById($param, $param->id);
+        $param = $this->param->post();
+        $data = $ruleModel->updateDataById($param, $id);
         if (!$data) {
             return resultArray(['error' => $ruleModel->getError()]);
         }
         return resultArray(['data' => '编辑成功']);
     }
 
-    public function delete()
+    public function delete($id)
     {
         $ruleModel = model('Rule');
-        $param = $this->param;
-        $data = $ruleModel->delDataById($param->id, true);
+        $data = $ruleModel->delDataById($id, true);
         if (!$data) {
             return resultArray(['error' => $ruleModel->getError()]);
         }
@@ -66,7 +64,7 @@ class Rules extends ApiCommon
     public function deletes()
     {
         $ruleModel = model('Rule');
-        $param = $this->param;
+        $param = $this->param->post();
         $data = $ruleModel->delDatas($param->ids, true);
         if (!$data) {
             return resultArray(['error' => $ruleModel->getError()]);
@@ -77,7 +75,7 @@ class Rules extends ApiCommon
     public function enables()
     {
         $ruleModel = model('Rule');
-        $param = $this->param;
+        $param = $this->param->post();
         $data = $ruleModel->enableDatas($param->ids, $param->status, true);
         if (!$data) {
             return resultArray(['error' => $ruleModel->getError()]);

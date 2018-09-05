@@ -19,11 +19,10 @@ class Posts extends ApiCommon
         return resultArray(['data' => $data]);
     }
 
-    public function read()
+    public function read($id)
     {
         $postModel = model('Post');
-        $param = $this->param;
-        $data = $postModel->getDataById($param->id);
+        $data = $postModel->getDataById($id);
         if (!$data) {
             return resultArray(['error' => $postModel->getError()]);
         }
@@ -33,7 +32,7 @@ class Posts extends ApiCommon
     public function save()
     {
         $postModel = model('Post');
-        $param = $this->param;
+        $param = $this->param->post();
         $data = $postModel->createData($param);
         if (!$data) {
             return resultArray(['error' => $postModel->getError()]);
@@ -41,22 +40,21 @@ class Posts extends ApiCommon
         return resultArray(['data' => '添加成功']);
     }
 
-    public function update()
+    public function update($id)
     {
         $postModel = model('Post');
-        $param = $this->param;
-        $data = $postModel->updateDataById($param, $param->id);
+        $param = $this->param->post();
+        $data = $postModel->updateDataById($param, $id);
         if (!$data) {
             return resultArray(['error' => $postModel->getError()]);
         }
         return resultArray(['data' => '编辑成功']);
     }
 
-    public function delete()
+    public function delete($id)
     {
         $postModel = model('Post');
-        $param = $this->param;
-        $data = $postModel->delDataById($param->id);
+        $data = $postModel->delDataById($id);
         if (!$data) {
             return resultArray(['error' => $postModel->getError()]);
         }
@@ -66,7 +64,7 @@ class Posts extends ApiCommon
     public function deletes()
     {
         $postModel = model('Post');
-        $param = $this->param;
+        $param = $this->param->post();
         $data = $postModel->delDatas($param->ids);
         if (!$data) {
             return resultArray(['error' => $postModel->getError()]);
@@ -77,7 +75,7 @@ class Posts extends ApiCommon
     public function enables()
     {
         $postModel = model('Post');
-        $param = $this->param;
+        $param = $this->param->post();
         $data = $postModel->enableDatas($param->ids, $param->status);
         if (!$data) {
             return resultArray(['error' => $postModel->getError()]);

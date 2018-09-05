@@ -18,11 +18,10 @@ class Menus extends ApiCommon
         return resultArray(['data' => $data]);
     }
 
-    public function read()
+    public function read($id)
     {   
         $menuModel = model('Menu');
-        $param = $this->param;
-        $data = $menuModel->getDataById($param->id);
+        $data = $menuModel->getDataById($id);
         if (!$data) {
             return resultArray(['error' => $menuModel->getError()]);
         } 
@@ -32,7 +31,7 @@ class Menus extends ApiCommon
     public function save()
     {
         $menuModel = model('Menu');
-        $param = $this->param;
+        $param = $this->param->post();
         $data = $menuModel->createData($param);
         if (!$data) {
             return resultArray(['error' => $menuModel->getError()]);
@@ -40,22 +39,21 @@ class Menus extends ApiCommon
         return resultArray(['data' => '添加成功']);
     }
 
-    public function update()
+    public function update($id)
     {
         $menuModel = model('Menu');
-        $param = $this->param;
-        $data = $menuModel->updateDataById($param, $param->id);
+        $param = $this->param->post();
+        $data = $menuModel->updateDataById($param, $id);
         if (!$data) {
             return resultArray(['error' => $menuModel->getError()]);
         } 
         return resultArray(['data' => '编辑成功']);
     }
 
-    public function delete()
+    public function delete($id)
     {
         $menuModel = model('Menu');
-        $param = $this->param;
-        $data = $menuModel->delDataById($param->id, true);       
+        $data = $menuModel->delDataById($id, true);       
         if (!$data) {
             return resultArray(['error' => $menuModel->getError()]);
         } 
@@ -65,7 +63,7 @@ class Menus extends ApiCommon
     public function deletes()
     {
         $menuModel = model('Menu');
-        $param = $this->param;
+        $param = $this->param->post();
         $data = $menuModel->delDatas($param->ids, true);  
         if (!$data) {
             return resultArray(['error' => $menuModel->getError()]);
@@ -76,7 +74,7 @@ class Menus extends ApiCommon
     public function enables()
     {
         $menuModel = model('Menu');
-        $param = $this->param;
+        $param = $this->param->post();
         $data = $menuModel->enableDatas($param->ids, $param->status, true);  
         if (!$data) {
             return resultArray(['error' => $menuModel->getError()]);

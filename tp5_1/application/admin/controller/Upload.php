@@ -7,16 +7,11 @@
 namespace app\admin\controller;
 
 use think\facade\Request;
-use think\Controller;
 
-class Upload extends Controller
+class Upload extends ApiCommon
 {   
     public function index()
     {	
-
-        header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Methods: POST');
-        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
         $file = request()->file('file');
         if (!$file) {
         	return resultArray(['error' => '请上传文件']);

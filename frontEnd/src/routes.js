@@ -50,7 +50,7 @@ const routes = [
     path: '/home',
     component: Home,
     children: [
-      { path: 'config/add', component: systemConfig, name: 'systemConfig', meta: { hideLeft: false, module: 'Administrative', menu: 'systemConfig' }}
+      { path: 'config/add', component: systemConfig, name: 'Systemconfigs', meta: { hideLeft: false, module: 'Administrative', menu: 'systemConfig' }}
     ]
   },
 

@@ -53,11 +53,10 @@ class Users extends ApiCommon
         return resultArray(['data' => '编辑成功']);
     }
 
-    public function delete()
+    public function delete($id)
     {
         $userModel = model('User');
-        $param = $this->param;
-        $data = $userModel->delDataById($param->id);       
+        $data = $userModel->delDataById($id);       
         if (!$data) {
             return resultArray(['error' => $userModel->getError()]);
         } 
@@ -67,7 +66,7 @@ class Users extends ApiCommon
     public function deletes()
     {
         $userModel = model('User');
-        $param = $this->param;
+        $param = $this->param->post();
         $data = $userModel->delDatas($param->ids);  
         if (!$data) {
             return resultArray(['error' => $userModel->getError()]);
@@ -78,7 +77,7 @@ class Users extends ApiCommon
     public function enables()
     {
         $userModel = model('User');
-        $param = $this->param;
+        $param = $this->param->post();
         $data = $userModel->enableDatas($param->ids, $param->status);  
         if (!$data) {
             return resultArray(['error' => $userModel->getError()]);

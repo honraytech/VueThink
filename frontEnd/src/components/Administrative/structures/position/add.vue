@@ -44,7 +44,7 @@
         this.$refs[form].validate((valid) => {
           if (valid) {
             this.isLoading = !this.isLoading
-            this.apiPost('admin/posts', this.form).then((res) => {
+            this.apiPost('admin/posts/save', this.form).then((res) => {
               this.handelResponse(res, (data) => {
                 _g.toastMsg('success', '添加成功')
                 setTimeout(() => {

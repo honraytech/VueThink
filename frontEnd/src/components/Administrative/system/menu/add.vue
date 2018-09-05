@@ -83,7 +83,7 @@
         this.$refs.form.validate((pass) => {
           if (pass) {
             this.isLoading = !this.isLoading
-            this.apiPost('admin/menus', this.form).then((res) => {
+            this.apiPost('admin/menus/save', this.form).then((res) => {
               this.handelResponse(res, (data) => {
                 _g.clearVuex('setRules')
                 _g.toastMsg('success', '添加成功')

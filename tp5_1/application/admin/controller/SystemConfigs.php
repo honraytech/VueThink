@@ -7,12 +7,15 @@
 
 namespace app\admin\controller;
 
-class SystemConfigs extends ApiCommon
+use app\common\controller\Common;
+use think\facade\Request;
+
+class Systemconfigs extends Common
 {
     public function save()
     {
         $configModel = model('SystemConfig');
-        $param = $this->param;
+        $param = $this->param->post();
         $data = $configModel->createData($param);
         if (!$data) {
             return resultArray(['error' => $configModel->getError()]);

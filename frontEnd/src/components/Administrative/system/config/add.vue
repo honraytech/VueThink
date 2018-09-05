@@ -75,7 +75,7 @@
         this.$refs.form.validate((pass) => {
           if (pass) {
             this.isLoading = !this.isLoading
-            this.apiPost('admin/systemConfigs/save', this.form).then((res) => {
+            this.apiPost('admin/systemconfigs/save', this.form).then((res) => {
               this.handelResponse(res, (data) => {
                 _g.toastMsg('success', '提交成功')
                 this.isLoading = !this.isLoading
@@ -112,7 +112,7 @@
       }
     },
     created() {
-      this.uploadUrl = window.HOST + '/Upload'
+      this.uploadUrl = window.HOST + '/upload'
       this.apiPost('admin/base/getConfigs').then((res) => {
         this.handelResponse(res, (data) => {
           this.form.SYSTEM_NAME = data.SYSTEM_NAME

@@ -18,11 +18,10 @@ class Groups extends ApiCommon
         return resultArray(['data' => $data]);
     }
 
-    public function read()
+    public function read($id)
     {   
         $groupModel = model('Group');
-        $param = $this->param;
-        $data = $groupModel->getDataById($param->id);
+        $data = $groupModel->getDataById($id);
         if (!$data) {
             return resultArray(['error' => $groupModel->getError()]);
         } 
@@ -32,7 +31,7 @@ class Groups extends ApiCommon
     public function save()
     {
         $groupModel = model('Group');
-        $param = $this->param;
+        $param = $this->param->post();
         $data = $groupModel->createData($param);
         if (!$data) {
             return resultArray(['error' => $groupModel->getError()]);
@@ -40,22 +39,21 @@ class Groups extends ApiCommon
         return resultArray(['data' => '添加成功']);
     }
 
-    public function update()
+    public function update($id)
     {
         $groupModel = model('Group');
-        $param = $this->param;
-        $data = $groupModel->updateDataById($param, $param->id);
+        $param = $this->param->post();
+        $data = $groupModel->updateDataById($param, $id);
         if (!$data) {
             return resultArray(['error' => $groupModel->getError()]);
         } 
         return resultArray(['data' => '编辑成功']);
     }
 
-    public function delete()
+    public function delete($id)
     {
         $groupModel = model('Group');
-        $param = $this->param;
-        $data = $groupModel->delDataById($param->id, true);       
+        $data = $groupModel->delDataById($id, true);       
         if (!$data) {
             return resultArray(['error' => $groupModel->getError()]);
         } 
@@ -65,7 +63,7 @@ class Groups extends ApiCommon
     public function deletes()
     {
         $groupModel = model('Group');
-        $param = $this->param;
+        $param = $this->param->post();
         $data = $groupModel->delDatas($param->ids, true);  
         if (!$data) {
             return resultArray(['error' => $groupModel->getError()]);
@@ -76,7 +74,7 @@ class Groups extends ApiCommon
     public function enables()
     {
         $groupModel = model('Group');
-        $param = $this->param;
+        $param = $this->param->post();
         $data = $groupModel->enableDatas($param->ids, $param->status, true);  
         if (!$data) {
             return resultArray(['error' => $groupModel->getError()]);

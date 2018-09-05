@@ -13,16 +13,14 @@ class Structures extends ApiCommon
     public function index()
     {   
         $structureModel = model('Structure');
-        $param = $this->param;
         $data = $structureModel->getDataList();
         return resultArray(['data' => $data]);
     }
 
-    public function read()
+    public function read($id)
     {   
         $structureModel = model('Structure');
-        $param = $this->param;
-        $data = $structureModel->getDataById($param->id);
+        $data = $structureModel->getDataById($id);
         if (!$data) {
             return resultArray(['error' => $structureModel->getError()]);
         } 
@@ -32,7 +30,7 @@ class Structures extends ApiCommon
     public function save()
     {
         $structureModel = model('Structure');
-        $param = $this->param;
+        $param = $this->param->post();
         $data = $structureModel->createData($param);
         if (!$data) {
             return resultArray(['error' => $structureModel->getError()]);
@@ -40,22 +38,21 @@ class Structures extends ApiCommon
         return resultArray(['data' => '添加成功']);
     }
 
-    public function update()
+    public function update($id)
     {
         $structureModel = model('Structure');
-        $param = $this->param;
-        $data = $structureModel->updateDataById($param, $param->id);
+        $param = $this->param->post();
+        $data = $structureModel->updateDataById($param, $id);
         if (!$data) {
             return resultArray(['error' => $structureModel->getError()]);
         } 
         return resultArray(['data' => '编辑成功']);
     }
 
-    public function delete()
+    public function delete($id)
     {
         $structureModel = model('Structure');
-        $param = $this->param;
-        $data = $structureModel->delDataById($param->id, true);       
+        $data = $structureModel->delDataById($id, true);       
         if (!$data) {
             return resultArray(['error' => $structureModel->getError()]);
         } 
@@ -65,7 +62,7 @@ class Structures extends ApiCommon
     public function deletes()
     {
         $structureModel = model('Structure');
-        $param = $this->param;
+        $param = $this->param->post();
         $data = $structureModel->delDatas($param->ids, true);  
         if (!$data) {
             return resultArray(['error' => $structureModel->getError()]);
@@ -76,7 +73,7 @@ class Structures extends ApiCommon
     public function enables()
     {
         $structureModel = model('Structure');
-        $param = $this->param;
+        $param = $this->param->post();
         $data = $structureModel->enableDatas($param->ids, $param->status, true);  
         if (!$data) {
             return resultArray(['error' => $structureModel->getError()]);

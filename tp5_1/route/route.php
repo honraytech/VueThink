@@ -34,27 +34,43 @@ Route::group('admin', function() {
         // 【基础】上传图片
         Route::rule('', 'admin/upload/index', 'POST|OPTIONS');
     });
-    Route::group('systemConfigs', function() {
+    Route::group('systemconfigs', function() {
         // 保存系统配置
-        Route::rule('save', 'admin/systemConfigs/save', 'POST|OPTIONS');
+        Route::rule('save', 'admin/systemconfigs/save', 'POST|OPTIONS');
     });
     // 【规则】
     Route::group('rules', function() {
         // 获取全部
         Route::rule('', 'admin/rules/index', 'GET|POST|OPTIONS');
+        Route::rule('/:id', 'admin/rules/read', 'GET|POST|OPTIONS')->pattern(['id' => '\d+']);
         // 批量删除
         Route::rule('deletes', 'admin/rules/deletes', 'POST|OPTIONS');
+        Route::group('delete', function() {
+            Route::rule('/:id', 'admin/rules/delete', 'PUT|POST|OPTIONS')->pattern(['id' => '\d+']);
+        });
         // 批量启用/禁用
         Route::rule('enables', 'admin/rules/enables', 'POST|OPTIONS');
+        Route::rule('save', 'admin/rules/save', 'POST|OPTIONS');
+        Route::group('update', function() {
+            Route::rule('/:id', 'admin/rules/update', 'PUT|POST|OPTIONS')->pattern(['id' => '\d+']);
+        });
     });
     // 【用户组】
     Route::group('groups', function() {
         // 获取全部
         Route::rule('', 'admin/groups/index', 'GET|POST|OPTIONS');
+        Route::rule('/:id', 'admin/groups/read', 'GET|POST|OPTIONS')->pattern(['id' => '\d+']);
         // 批量删除
         Route::rule('deletes', 'admin/groups/deletes', 'POST|OPTIONS');
+        Route::group('delete', function() {
+            Route::rule('/:id', 'admin/groups/delete', 'PUT|POST|OPTIONS')->pattern(['id' => '\d+']);
+        });
         // 批量启用/禁用
         Route::rule('enables', 'admin/groups/enables', 'POST|OPTIONS');
+        Route::rule('save', 'admin/groups/save', 'POST|OPTIONS');
+        Route::group('update', function() {
+            Route::rule('/:id', 'admin/groups/update', 'PUT|POST|OPTIONS')->pattern(['id' => '\d+']);
+        });
     });
     // 【用户组】
     Route::group('users', function() {
@@ -64,6 +80,9 @@ Route::group('admin', function() {
         Route::rule('/:id', 'admin/users/read', 'GET|POST|OPTIONS')->pattern(['id' => '\d+']);
         // 批量删除
         Route::rule('deletes', 'admin/users/deletes', 'POST|OPTIONS');
+        Route::group('delete', function() {
+            Route::rule('/:id', 'admin/users/delete', 'PUT|POST|OPTIONS')->pattern(['id' => '\d+']);
+        });
         // 批量启用/禁用
         Route::rule('enables', 'admin/users/enables', 'POST|OPTIONS');
         // 保存
@@ -77,28 +96,52 @@ Route::group('admin', function() {
     Route::group('menus', function() {
         // 获取全部
         Route::rule('', 'admin/menus/index', 'GET|POST|OPTIONS');
+        Route::rule('/:id', 'admin/menus/read', 'GET|POST|OPTIONS')->pattern(['id' => '\d+']);
         // 批量删除
         Route::rule('deletes', 'admin/menus/deletes', 'POST|OPTIONS');
+        Route::group('delete', function() {
+            Route::rule('/:id', 'admin/menus/delete', 'PUT|POST|OPTIONS')->pattern(['id' => '\d+']);
+        });
         // 批量启用/禁用
         Route::rule('enables', 'admin/menus/enables', 'POST|OPTIONS');
+        Route::rule('save', 'admin/menus/save', 'POST|OPTIONS');
+        Route::group('update', function() {
+            Route::rule('/:id', 'admin/menus/update', 'PUT|POST|OPTIONS')->pattern(['id' => '\d+']);
+        });
     });
     // 【组织架构】
     Route::group('structures', function() {
         // 获取全部
         Route::rule('', 'admin/structures/index', 'GET|POST|OPTIONS');
+        Route::rule('/:id', 'admin/structures/read', 'GET|POST|OPTIONS')->pattern(['id' => '\d+']);
         // 批量删除
         Route::rule('deletes', 'admin/structures/deletes', 'POST|OPTIONS');
+        Route::group('delete', function() {
+            Route::rule('/:id', 'admin/structures/delete', 'PUT|POST|OPTIONS')->pattern(['id' => '\d+']);
+        });
         // 批量启用/禁用
         Route::rule('enables', 'admin/structures/enables', 'POST|OPTIONS');
+        Route::rule('save', 'admin/structures/save', 'POST|OPTIONS');
+        Route::group('update', function() {
+            Route::rule('/:id', 'admin/structures/update', 'PUT|POST|OPTIONS')->pattern(['id' => '\d+']);
+        });
     });
-    // 【组织架构】
+    // 【部门】
     Route::group('posts', function() {
         // 获取全部
         Route::rule('', 'admin/posts/index', 'GET|POST|OPTIONS');
+        Route::rule('/:id', 'admin/posts/read', 'GET|POST|OPTIONS')->pattern(['id' => '\d+']);
         // 批量删除
         Route::rule('deletes', 'admin/posts/deletes', 'POST|OPTIONS');
+        Route::group('delete', function() {
+            Route::rule('/:id', 'admin/posts/delete', 'PUT|POST|OPTIONS')->pattern(['id' => '\d+']);
+        });
         // 批量启用/禁用
         Route::rule('enables', 'admin/posts/enables', 'POST|OPTIONS');
+        Route::rule('save', 'admin/posts/save', 'POST|OPTIONS');
+        Route::group('update', function() {
+            Route::rule('/:id', 'admin/posts/update', 'PUT|POST|OPTIONS')->pattern(['id' => '\d+']);
+        });
     });
 })->header('Access-Control-Allow-Origin', '*')
     ->header('Access-Control-Allow-Credentials', 'true')

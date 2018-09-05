@@ -64,7 +64,7 @@
         this.$refs[form].validate((valid) => {
           if (valid) {
             this.isLoading = !this.isLoading
-            this.apiPut('admin/rules/', this.form.id, this.form).then((res) => {
+            this.apiPut('admin/rules/update/', this.form.id, this.form).then((res) => {
               this.handelResponse(res, (data) => {
                 _g.toastMsg('success', '编辑成功')
                 setTimeout(() => {
