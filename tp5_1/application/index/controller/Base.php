@@ -5,12 +5,12 @@
 // | Author: linchuangbin <linchuangbin@honraytech.com>
 // +----------------------------------------------------------------------
 
-namespace app\admin\controller;
+namespace app\index\controller;
 
-use app\common\controller\Common;
-use app\common\controller\SystemConfig;
 use com\verify\HonrayVerify;
+use app\common\controller\Common;
 use think\facade\Request;
+
 
 class Base extends Common
 {
@@ -57,6 +57,18 @@ class Base extends Common
         return resultArray(['data' => '退出成功']);
     }
 
+    public function getConfigs()
+    {
+        $systemConfig = cache('DB_CONFIG_DATA');
+        if (!$systemConfig) {
+            //获取所有系统配置
+            $systemConfig = model('common/SystemConfig')->getDataList();
+            cache('DB_CONFIG_DATA', null);
+            cache('DB_CONFIG_DATA', $systemConfig, 36000); //缓存配置
+        }
+        return resultArray(['data' => $systemConfig]);
+    }
+
     public function getVerify()
     {
         $captcha = new HonrayVerify(config('captcha'));
@@ -87,3 +99,4 @@ class Base extends Common
         }
     }
 }
+ 

@@ -5,7 +5,7 @@
 // | Author: linchuangbin <linchuangbin@honraytech.com>
 // +----------------------------------------------------------------------
 
-namespace app\admin\controller;
+namespace app\index\controller;
 
 use think\facade\Request;
 use think\Db;
@@ -34,7 +34,7 @@ class ApiCommon extends Common
         $userInfo = $cache['userInfo'];
         $map['id'] = $userInfo['id'];
         $map['status'] = 1;
-        if (!Db::name('admin_user')->where($map)->value('id')) {
+        if (!Db::name('user')->where($map)->value('id')) {
             header('Content-Type:application/json; charset=utf-8');
             exit(json_encode(['code'=>103, 'error'=>'账号已被删除或禁用']));
         }
