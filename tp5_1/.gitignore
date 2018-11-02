@@ -1,7 +1,0 @@
-.idea
-composer.lock
-*.log
-.env
-thinkphp
-nginx.htaccess
-phpMyAdmin
