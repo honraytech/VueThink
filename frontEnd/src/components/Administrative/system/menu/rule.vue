@@ -60,6 +60,15 @@
       closeDialog() {
         this.$refs.dialog.close()
       },
+      searchMsg(keyword) {
+        if (keyword == '') {
+	  this.tableData = this.tableDataShow
+        } else {
+	  this.tableData = _.filter(this.tableDataShow, (ret) => {
+	    return _.includes(ret.title, keyword)
+	  })
+        }
+      },
       selectRule(item) {
         setTimeout(() => {
           this.$parent.form.rule_name = item.title
